@@ -1,0 +1,52 @@
+package rma.org.bt.mms.global.library;
+
+import com.squareup.okhttp.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.token.Token;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.Base64;
+
+public class TokenUtil {
+
+    public static Response getAccessToken() throws IOException {
+
+        OkHttpClient client = new OkHttpClient();
+
+        //Cliend id and client secret
+        String endpoint = "https://sso.dit.gov.bt/oauth2/token";
+        String username = "PyK6uBk6Al4RqsMhOublfSBmaa8a";
+        String password = "9AeKCSmUX5l3Tj79DaruP6fTCMsa";
+        String credentials = username + ":" + password;
+
+        final String basic = "Basic " + Base64.getEncoder().encodeToString(credentials.getBytes());
+
+
+        Request request = new Request.Builder()
+                .addHeader("grant_type","client_credentials")
+                .addHeader("Content-Type","application/x-www-form-urlencoded")
+                .url(endpoint)
+//                .addHeader("Authorization", Credentials.basic("username", "password"))
+                .addHeader("Authorization", basic)
+                .build();
+
+
+        return  client.newCall(request).execute();
+
+
+       /* HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        HttpEntity<?> httpEntity = new HttpEntity<>("grant_type=client_credentials&scope=" + config.getScope(), headers);
+
+        ResponseEntity<Token> resp = getRestTemplate(builder).exchange(
+                new URI(config.getTokenUrl()),
+                HttpMethod.POST,
+                httpEntity,
+                Token.class);*/
+    }
+}

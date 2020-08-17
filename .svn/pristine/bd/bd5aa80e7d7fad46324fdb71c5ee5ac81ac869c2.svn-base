@@ -1,0 +1,9 @@
+DcmStockWithRmaDao.getDCMStockSummaryReport = SELECT date, rma, cc, ex_counter, ro_pling, ro_mongar, total FROM dcm_stock ORDER BY DATE DESC
+
+DcmStockWithRmaDao.getDCMStockSummaryDashboard = SELECT `date`, total FROM dcm_stock ORDER BY DATE DESC LIMIT 1
+
+DcmStockWithRmaDao.getLastFiveDaysNuStock = CALL sp_dcm_last_five_nu_stock_rpt();
+
+DcmStockWithRmaDao.getINRCashStock = CALL sp_dcm_latest_inr_stock_rpt(:reportType);
+
+DcmStockWithRmaDao.getNuStockCIC = CALL sp_dcm_nu_stock_and_cc_rpt(:reportType);

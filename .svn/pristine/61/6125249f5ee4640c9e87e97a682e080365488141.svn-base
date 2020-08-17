@@ -1,0 +1,73 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- Begin Page Content -->
+<%--<div class="container-fluid">--%>
+<!-- Content Row -->
+<div class="row">
+    <div class="col-xl-6 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Liquidity Position of Banks (Millions)</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="table-responsive" style="font-size:11px ">
+                    <table class="table table-bordered" id="bankDepositDetail" width="100%"
+                           cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th class="align-center">Banks</th>
+                            <th class="align-center">Current A/C</th>
+                            <th class="align-center">Sweeping</th>
+                            <th class="align-center">CRR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td id="currentAcc"></td>
+                            <td id="sweepingAcc"></td>
+                            <td id="cashRatioAcc"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="text-center">
+            <label class="label label-success">Bank Balance(Current account and GIFT Settlement account)</label>
+
+            <div id="line-chart-db"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Color System -->
+    <div class="col-md-12">
+        <div class="card shadow ">
+            <div id="accordion">
+                <div class="card mb-0">
+                    <div class="card-header collapsed" data-toggle="collapse"
+                         data-parent="#accordion"
+                         href="#db-menu">
+                        <h6 class="card-title m-0 font-weight-bold text-primary">
+                            Bank Account Balance of Banks
+                        </h6>
+                    </div>
+                    <div id="db-menu" class="card-body collapse" data-parent="#accordion">
+                        <jsp:include page="menu/db-menu.jsp"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="<c:url value='/resources/js/db/dbDashboard.js'/>"></script>
+</div>
+<%--</div>--%>
+<!-- /.container-fluid -->

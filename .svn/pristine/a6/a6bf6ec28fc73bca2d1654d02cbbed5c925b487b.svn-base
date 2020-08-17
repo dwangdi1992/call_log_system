@@ -1,0 +1,92 @@
+package rma.org.bt.mms.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import rma.org.bt.mms.dao.FinancialInfoDao;
+import rma.org.bt.mms.global.base.BaseService;
+import rma.org.bt.mms.model.*;
+
+import java.util.List;
+
+@Service
+public class FinancialInfoService extends BaseService {
+
+    //region private variables
+    @Autowired
+    private FinancialInfoDao financialInfoDao;
+    //endregion
+
+    //region public methods.
+
+    /**
+     * To get list of loan information in any.
+     *
+     * @param searchKey - TPN/CID/LicenseNo
+     * @return List<LoanInfoDTO>
+     */
+    public List<LoanInfoDTO> getLoanInfo(String searchKey) {
+        return financialInfoDao.getLoanInfo(searchKey);
+    }
+
+    /**
+     * To get list of deposit information if any
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<DepositInfoDTO>
+     */
+    public List<DepositInfoDTO> getDepositInfo(String searchKey) {
+        return financialInfoDao.getDepositInfo(searchKey);
+    }
+
+    /**
+     * To get working capital information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<WorkingCapitalInfoDTO>
+     */
+    public List<WorkingCapitalInfoDTO> getWorkingCapitalInfo(String searchKey) {
+        return financialInfoDao.getWorkingCapitalInfo(searchKey);
+    }
+
+
+    /**
+     * To get land information if any.
+     *
+     * @param searchKey-TPN/CID/LicenseNo
+     * @return List<LandInfoDTO>
+     */
+    public List<LandInfoDTO> getLandInfo(String searchKey) {
+        return financialInfoDao.getLandInfo(searchKey);
+    }
+
+    /**
+     * To get list of building or information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<BuildingInfoDTO>
+     */
+    public List<BuildingInfoDTO> getBuildingInfo(String searchKey) {
+        return financialInfoDao.getBuildingInfo(searchKey);
+    }
+
+    /**
+     * To get list vehicle information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<VehicleInfoDTO>
+     */
+    public List<VehicleInfoDTO> getVehicleInfo(String searchKey) {
+        return financialInfoDao.getVehicleInfo(searchKey);
+    }
+
+    public List<String> getBusinessInfo(String searchKey) {
+        return financialInfoDao.getBusinessInfo(searchKey);
+    }
+
+
+    public List<KiduInfoDTO> getDepositByBank() {
+        return financialInfoDao.getDepositByBank();
+    }
+    //endregion
+}

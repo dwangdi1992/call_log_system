@@ -1,0 +1,74 @@
+/**
+ * Created by RMA on 4/6/2020.
+ * Banking Department dashboard.
+ */
+
+db_dashboard = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL;
+    }
+
+    function getBankDepositDetail() {
+        $.ajax({
+            url: _baseURL() + 'getBankDepositDetail',
+            type: 'GET',
+            success: function (res) {
+                var currentAcc = 0.0;
+                var sweepingAcc = 0.0;
+                var cashRatioAcc = 0.0;
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + res[i].bankCode + '</td>' +
+                    '<td>' + commaSeparator(res[i].currentAcc) + '</td>' +
+                    '<td>' + commaSeparator(res[i].sweepingAcc) + '</td>' +
+                    '<td>' + commaSeparator(res[i].cashReserveRatio) + '</td>'
+
+                    currentAcc += parseFloat(res[i].currentAcc);
+                    sweepingAcc += parseFloat(res[i].sweepingAcc);
+                    cashRatioAcc += parseFloat(res[i].cashReserveRatio);
+                }
+                var tableId = $('#bankDepositDetail');
+                tableId.find('tbody').empty().prepend(row);
+                $('#currentAcc').text(commaSeparator(currentAcc));
+                $('#sweepingAcc').text(commaSeparator(sweepingAcc));
+                $('#cashRatioAcc').text(commaSeparator(cashRatioAcc));
+
+            }
+        });
+    }
+
+
+    function getCurrAndGiftBalance() {
+        $.ajax({
+            url: _baseURL() + 'getCurrAndGiftBalance',
+            type: 'GET',
+            success: function (res) {
+                new Morris.Line({
+                    element: 'line-chart-db',//Div id.
+                    data: res,
+                    xkey: 'date', //X - Axis
+                    parseTime: false,
+                    ykeys: ['bob_amt', 'bnb_amt', 'pnb_amt', 'bdbl_amt', 'tbank_amt'],//Y-axis
+                    labels: ['BOBL', 'BNBL', 'DPNBL', 'BDBL', 'T Bank'],
+                    lineColors: ['#2E8B57', '#ff0000', '#00b300', '#808000', '#0000e6']
+                });
+            }
+        });
+    }
+
+
+    return {
+        getBankDepositDetail: getBankDepositDetail,
+        getCurrAndGiftBalance: getCurrAndGiftBalance
+    };
+})
+();
+
+
+$(document).ready(function () {
+    db_dashboard.getBankDepositDetail();
+    db_dashboard.getCurrAndGiftBalance();
+});

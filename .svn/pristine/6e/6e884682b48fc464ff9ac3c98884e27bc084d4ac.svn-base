@@ -1,0 +1,63 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/25/2020
+  Time: 11:00 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Foreign Currency(Purchase/Sale)with Domestic Banks (Millions)</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 align-center">Department of Foreign Exchange</h1>
+    <!-- DataTales - Reserve Position -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Foreign Currency(Purchase/Sale) with Domestic Banks</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered enableDataTable" id="foreignCurrFlow" width="100%"
+                       cellspacing="0">
+                    <thead class="align-center">
+                    <tr>
+                        <th colspan="5">Convertible Currency (USD millions)</th>
+                        <th colspan="3">Indian Rupee (INR in millions)</th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Purchase</th>
+                        <th>Sale</th>
+                        <th>Net</th>
+                        <th>Purchase</th>
+                        <th>Sale</th>
+                        <th>Net</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${foreignCurrTradeList}" var="item" varStatus="counter">
+                        <tr>
+                            <td class="align-center"> ${counter.count}</td>
+                            <td class="align-center">${item.date}</td>
+                            <td class="align-right">${item.cc_purchase} </td>
+                            <td class="align-right">${item.cc_sale}</td>
+                            <td class="align-right">${item.cc_total} </td>
+                            <td class="align-right">${item.inr_purchase}</td>
+                            <td class="align-right">${item.inr_sale}</td>
+                            <td class="align-right">${item.inr_total}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

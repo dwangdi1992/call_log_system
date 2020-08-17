@@ -1,0 +1,3 @@
+NationalResilientDao.getNationalResFundList = CALL sp_db_national_res_fund_list();
+
+NationalResilientDao.getAsOnNationalResFund = CALL sp_db_national_res_fund_ason_rpt();

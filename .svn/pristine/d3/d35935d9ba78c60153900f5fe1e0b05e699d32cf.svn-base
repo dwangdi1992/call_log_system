@@ -1,0 +1,111 @@
+dcmINRInput = (function () {
+    "use strict";
+
+    var formId = $('#dcmINRInputForm');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dcmINRInput/"
+    }
+
+    function readExcelSheet() {
+        $('#uploadFile').on('change', function () {
+            var data = new FormData($(formId)[0]);
+            data.append('uploadFile', $('input[type=file]')[0].files[0]);
+            $.ajax({
+                url: _baseURL() + 'readExcelSheet',
+                type: 'POST',
+                data: data,
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td></td>' +
+                        '<td>' + res[i].date + '</td>' +
+                        '<td>' + res[i].inr_tpu + '</td>' +
+                        '<td>' + res[i].inr_plg + '</td>' +
+                        '<td>' + res[i].inr_mgr + '</td>' +
+                        '<td>' + res[i].inr_ex_counter_bnb_hq + '</td>' +
+                        '<td>' + res[i].inr_currency_chests + '</td>' +
+                        '<td>' + res[i].inr_total + '</td>'
+                    }
+                    var tableId = $('#getDcmInrStockTable');
+                    tableId.dataTable().fnDestroy();
+                    tableId.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableId);
+                }
+            })
+        });
+    }
+
+    function readExcelSheet() {
+        $('#uploadFile').on('change', function () {
+            var data = new FormData($(formId)[0]);
+            data.append('uploadFile', $('input[type=file]')[0].files[0]);
+            $.ajax({
+                url: _baseURL() + 'readExcelSheet',
+                type: 'POST',
+                data: data,
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td></td>' +
+                        '<td>' + res[i].date + '</td>' +
+                        '<td>' + res[i].inr_ex_counter_bnb_hq + '</td>' +
+                        '<td>' + res[i].inr_plg_ro + '</td>' +
+                        '<td>' + res[i].inr_mgr_ro + '</td>' +
+                        '<td>' + res[i].inr_sj_bob + '</td>' +
+                        '<td>' + res[i].inr_paro_airport_bob + '</td>' +
+                        '<td>' + res[i].inr_total + '</td>'
+                    }
+                    var tableId = $('#getDcmInrOutflowTable');
+                    tableId.dataTable().fnDestroy();
+                    tableId.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableId);
+                }
+            })
+        });
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function () {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    var data = new FormData($(form)[0]);
+                    data.append('uploadFile', $('input[type=file]')[0].files[0]);
+                    $.ajax({
+                        url: _baseURL() + 'save',
+                        type: 'POST',
+                        data: data,
+                        enctype: 'multipart/form-data',
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    return {
+        readExcelSheet: readExcelSheet,
+        save: save
+    };
+})();
+
+$(document).ready(function () {
+    //dcmINRInput.readExcelSheet();
+    dcmINRInput.save();
+});

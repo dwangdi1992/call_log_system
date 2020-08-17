@@ -1,0 +1,106 @@
+package rma.org.bt.mms.dao;
+
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import rma.org.bt.mms.global.base.BaseDao;
+import rma.org.bt.mms.login.login.LoginDTO;
+import rma.org.bt.mms.model.*;
+
+import java.util.List;
+
+@Repository
+public class FinancialInfoDao extends BaseDao {
+
+    //region private variables
+    private Query hQuery;
+    //endregion
+
+    /**
+     * To get list of loan information in any.
+     *
+     * @param searchKey - TPN/CID/LicenseNo
+     * @return List<LoanInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<LoanInfoDTO> getLoanInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getLoanInfo");
+        hQuery = hibernateQuery(sqlQuery, LoanInfoDTO.class)
+                .setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get list of deposit information if any
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<DepositInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<DepositInfoDTO> getDepositInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getDepositInfo");
+        hQuery = hibernateQuery(sqlQuery, DepositInfoDTO.class)
+                .setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get working capital information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<WorkingCapitalInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<WorkingCapitalInfoDTO> getWorkingCapitalInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getWorkingCapitalInfo");
+        hQuery = hibernateQuery(sqlQuery, WorkingCapitalInfoDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get land information if any.
+     *
+     * @param searchKey-TPN/CID/LicenseNo
+     * @return List<LandInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<LandInfoDTO> getLandInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getLandInfo");
+        hQuery = hibernateQuery(sqlQuery, LandInfoDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get list of building or information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<BuildingInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<BuildingInfoDTO> getBuildingInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getBuildingInfo");
+        hQuery = hibernateQuery(sqlQuery, BuildingInfoDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get list vehicle information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<VehicleInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<VehicleInfoDTO> getVehicleInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getVehicleInfo");
+        hQuery = hibernateQuery(sqlQuery, VehicleInfoDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<String> getBusinessInfo(String searchKey) {
+        sqlQuery = properties.getProperty("FinancialInfoDao.getBusinessInfo");
+        hQuery = hibernateQuery(sqlQuery, LoginDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+}

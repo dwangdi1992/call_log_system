@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:global-method-security pre-post-annotations="enabled"/>
+
+    <security:http auto-config="true" use-expressions="true" disable-url-rewriting="true"
+                   entry-point-ref="authenticationEntryPoint"
+                   authentication-manager-ref="authenticationManager">
+
+        <!--For dashboard-->
+        <security:intercept-url
+                access="hasAnyRole('00-01-001-VIEW','00-01-002-VIEW','00-01-003-VIEW','00-01-004-VIEW','00-01-005-VIEW','00-01-007-VIEW','00-01-008-VIEW','00-01-009-VIEW','00-01-010-VIEW','00-01-011-VIEW','00-01-012-VIEW','00-01-013-VIEW','00-01-014-VIEW','00-01-015-VIEW','00-01-016-VIEW','00-01-017-VIEW','00-01-018-VIEW','00-01-019-VIEW','00-01-020-VIEW','00-01-021-VIEW','00-01-022-VIEW','00-01-023-VIEW','00-01-024-VIEW','00-01-025-VIEW','00-01-026-VIEW','00-01-027-VIEW','00-01-028-VIEW')"
+                pattern="/home"/>
+
+
+        <!--Admin -->
+        <security:intercept-url access="hasRole('01-01-001-VIEW')" pattern="/groupSetup"/>
+        <security:intercept-url access="hasRole('01-01-002-VIEW')" pattern="/usersetup"/>
+        <security:intercept-url access="hasRole('01-01-003-VIEW')" pattern="/permissionSetup"/>
+        <security:intercept-url access="hasRole('01-01-004-VIEW')" pattern="/passwordPolicy"/>
+        <security:intercept-url access="hasRole('01-01-005-VIEW')" pattern="/changePassword"/>
+        <security:intercept-url access="hasRole('01-01-006-VIEW')" pattern="/branchSetup"/>
+
+
+        <!--DFRS-->
+        <security:intercept-url access="hasRole('02-01-001-VIEW')" pattern="/dfrs_input"/>
+        <security:intercept-url access="hasRole('02-01-002-VIEW')" pattern="/mlr"/>
+        <security:intercept-url access="hasRole('02-02-001-VIEW')" pattern="/dfrsReport/deposit"/>
+        <security:intercept-url access="hasRole('02-02-002-VIEW')" pattern="/dfrsReport/asPosition"/>
+        <security:intercept-url access="hasRole('02-02-003-VIEW')" pattern="/dfrsReport/slr"/>
+        <security:intercept-url access="hasRole('02-02-004-VIEW')" pattern="/dfrsReport/stOverall"/>
+        <security:intercept-url access="hasRole('02-02-005-VIEW')" pattern="/dfrsReport/wc"/>
+        <security:intercept-url access="hasRole('02-02-006-VIEW')" pattern="/dfrsReport/lbm"/>
+
+        <!--DCM-->
+        <security:intercept-url access="hasRole('03-01-001-VIEW')" pattern="/dcmCICInput"/>
+        <security:intercept-url access="hasRole('03-01-002-VIEW')" pattern="/dcmCurrencyChestInput"/>
+        <security:intercept-url access="hasRole('03-01-003-VIEW')" pattern="/dcmStockWithRma"/>
+        <security:intercept-url access="hasRole('03-01-004-VIEW')" pattern="/dcmINRInput"/>
+        <security:intercept-url access="hasRole('03-02-001-VIEW')" pattern="/dcmCICReport"/>
+        <security:intercept-url access="hasRole('03-02-002-VIEW')" pattern="/dcmCurrencyChestReport"/>
+        <security:intercept-url access="hasRole('03-02-003-VIEW')" pattern="/dcmStockSummary"/>
+        <security:intercept-url access="hasRole('03-02-004-VIEW')" pattern="/dcmINRReport"/>
+        <security:intercept-url access="hasRole('03-02-005-VIEW')" pattern="/INROutflowReport"/>
+
+        <!--DB-->
+        <security:intercept-url access="hasRole('04-01-001-VIEW')" pattern="/bankDeposit"/>
+        <security:intercept-url access="hasRole('04-01-002-VIEW')" pattern="/treasuryBill"/>
+        <security:intercept-url access="hasRole('04-01-003-VIEW')" pattern="/govtConsolidateAcc"/>
+        <security:intercept-url access="hasRole('04-01-004-VIEW')" pattern="/nationalResilientFund"/>
+        <security:intercept-url access="hasRole('04-02-001-VIEW')" pattern="/bankReport/consolidateAccBalReport"/>
+        <security:intercept-url access="hasRole('04-02-002-VIEW')" pattern="/bankReport/currentAccBalReport"/>
+        <security:intercept-url access="hasRole('04-02-003-VIEW')" pattern="/bankReport/giftSettAccBalReport"/>
+        <security:intercept-url access="hasRole('04-02-004-VIEW')" pattern="/bankReport/cashRatioAccBalReport"/>
+        <security:intercept-url access="hasRole('04-02-005-VIEW')" pattern="/bankReport/sweepAccBalReport"/>
+        <security:intercept-url access="hasRole('04-02-006-VIEW')" pattern="/bankReport/treasuryReport"/>
+        <security:intercept-url access="hasRole('04-02-007-VIEW')" pattern="/bankReport/nationalResFundReport"/>
+
+        <!--DFERM-->
+        <security:intercept-url access="hasRole('05-01-001-VIEW')" pattern="/dfermEntry"/>
+        <security:intercept-url access="hasRole('05-02-001-VIEW')" pattern="/dfermReport/reservePositionReport"/>
+        <security:intercept-url access="hasRole('05-02-002-VIEW')" pattern="/dfermReport/foreignCurrencyFlowReport"/>
+        <security:intercept-url access="hasRole('05-02-003-VIEW')" pattern="/dfermReport/foreignCurrTradingReport"/>
+        <security:intercept-url access="hasRole('05-02-004-VIEW')" pattern="/dfermReport/govtDebtRepaymentReport"/>
+        <security:intercept-url access="hasRole('05-02-005-VIEW')" pattern="/dfermReport/privateDebtRepaymentReport"/>
+        <security:intercept-url access="hasRole('05-02-006-VIEW')" pattern="/dfermReport/airLeaseRepaymentReport"/>
+
+
+        <security:custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrentFilter"/>
+        <security:custom-filter before="FORM_LOGIN_FILTER" ref="authFilter"/>
+        <security:custom-filter after="EXCEPTION_TRANSLATION_FILTER" ref="ajaxTimeoutRedirectFilter"/>
+
+        <security:form-login always-use-default-target="false" authentication-failure-url="/login?error"
+                             default-target-url="/login" login-page="/login" login-processing-url="/auth"
+                             username-parameter="username" password-parameter="password"
+                             authentication-success-handler-ref="loginSuccessHandler"
+                             authentication-failure-handler-ref="loginFailureHandler"/>
+
+        <security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"
+                         invalidate-session="true" delete-cookies="JSESSIONID"/>
+
+        <security:session-management session-authentication-strategy-ref="sas" invalid-session-url="/login"/>
+        <security:access-denied-handler ref="accessDeniedHandler"/>
+        <security:http-basic/>
+        <security:csrf/>
+    </security:http>
+
+    <security:authentication-manager alias="authenticationManager" erase-credentials="true">
+        <security:authentication-provider ref="authenticationProvider"/>
+    </security:authentication-manager>
+
+    <bean class="org.springframework.security.core.session.SessionRegistryImpl" id="sessionRegistry"/>
+    <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>
+    <bean class="rma.org.bt.mms.security.WebAuthenticationProvider" id="authenticationProvider">
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+    <bean class="rma.org.bt.mms.security.AjaxTimeoutRedirectFilter" id="ajaxTimeoutRedirectFilter"/>
+
+    <bean class="rma.org.bt.mms.security.AuthenticationEntryPoint" id="authenticationEntryPoint">
+        <constructor-arg name="loginUrl" value="/login"/>
+    </bean>
+
+    <bean class="rma.org.bt.mms.security.WebAccessDeniedHandler" id="accessDeniedHandler">
+        <property name="accessDeniedUrl" value="403"/>
+    </bean>
+
+    <bean class="rma.org.bt.mms.security.LoginSuccessHandler" id="loginSuccessHandler">
+        <constructor-arg name="defaultTargetUrl" value="/home"/>
+    </bean>
+
+    <bean class="rma.org.bt.mms.security.LoginFailureHandler" id="loginFailureHandler">
+        <constructor-arg name="defaultFailureUrl" value="/login?error"/>
+    </bean>
+
+    <bean class="rma.org.bt.mms.security.LogoutSuccessHandler" id="logoutSuccessHandler">
+        <constructor-arg name="defaultTargetUrl" value="/login"/>
+    </bean>
+
+    <bean class="org.springframework.security.web.session.ConcurrentSessionFilter" id="concurrentFilter">
+        <constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+        <constructor-arg name="expiredUrl" value="/login"/>
+    </bean>
+
+    <bean class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" id="authFilter">
+        <property name="sessionAuthenticationStrategy" ref="sas"/>
+        <property name="authenticationManager" ref="authenticationManager"/>
+    </bean>
+
+    <bean class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy"
+          id="sas">
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+                    <constructor-arg ref="sessionRegistry"/>
+                    <property name="maximumSessions" value="1"/>
+                    <property name="exceptionIfMaximumExceeded" value="true"/>
+                </bean>
+                <bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy"/>
+                <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+                    <constructor-arg ref="sessionRegistry"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>

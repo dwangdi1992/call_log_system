@@ -1,0 +1,699 @@
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dfrsReport = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dfrsReport/"
+    }
+
+    //region deposit report methods
+    function initDeposit() {
+        if ($('#report').val() == 'DP') {
+            getDepositDetail();
+        }
+    }
+
+    function getDepositDetail() {
+        $.ajax({
+            url: _baseURL() + 'getDepositDetail',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj7) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj8) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj9) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj10) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#depositTableId');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    //endregion
+
+    //region allied sectors position report methods
+    function initAS() {
+        if ($('#report').val() == 'ASP') {
+            getASPosition();
+        }
+    }
+
+    function getASPosition() {
+        $.ajax({
+            url: _baseURL() + 'getASPosition',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (res[i].obj0 == null ? '' : res[i].obj0) + '</td>' +
+                    '<td>' + res[i].obj1 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj7) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj8) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj9) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj10) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj11) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj12) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj13) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj14) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#aspReportTbl');
+                //tableId.dataTable({"ordering": false}).fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    //endregion
+
+    //region  slr reports
+    function initSLR() {
+        if ($('#report').val() == 'SLR') {
+            getSLR();
+        }
+    }
+
+    function getSLR() {
+        $.ajax({
+            url: _baseURL() + 'getSLR',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#slrReportTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    //endregion
+
+    //region financial institute Summary Tourism and overall position
+    function initSTO() {
+        if ($('#report').val() == 'STO') {
+            getSTOverall();
+        }
+    }
+
+    function getSTOverall() {
+        $.ajax({
+            url: _baseURL() + 'getSTOverall',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#slrReportTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    //endregion
+
+    //region Working capital loan
+    function initWC() {
+        if ($('#report').val() == 'WC') {
+            //getWCTotal();
+            getWCDetail();
+        }
+    }
+
+    function getWCTotal() {
+        $.ajax({
+            url: _baseURL() + 'getWCTotal',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    var bank_id = "<input type='hidden' id= 'bank_id' value='" + res[i].obj0 + "'/>";
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + bank_id + res[i].obj1 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td><input type="button" value="Details" class="btn btn-outline-secondary btn-sm wcDetailBtn">  </td>' +
+                    '</tr>';
+                }
+                var tableId = $('#wcReportTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    function getWCDetail() {
+        $.ajax({
+            url: _baseURL() + 'getWCDetail',
+            type: 'GET',
+            async: false,
+            success: function (res) {
+                var row = '';
+                var bank = '';
+                var j = 1;
+
+                var acs = 0, disbursed_amt = 0, sanctioned_amt = 0;
+                for (var i in res) {
+                    var bank_td = '';
+                    if (bank != res[i].obj0) {
+                        var rowspan = (res[i].obj1 == 0 ? 1 : res[i].obj1);
+                        bank_td = '<td rowspan="' + rowspan + '" class="align-middle">' + j + '</td>' +
+                        '<td rowspan="' + rowspan + '" class="align-middle">' + res[i].obj0 + '</td>' +
+                        '<td rowspan="' + rowspan + '" class="align-middle">' + res[i].obj1 + '</td>';
+                        bank = res[i].obj0;
+                        j++;
+                    }
+                    acs = acs + parseFloat(res[i].obj6);
+                    disbursed_amt = disbursed_amt + parseFloat(res[i].obj5);
+                    sanctioned_amt = sanctioned_amt + parseFloat(res[i].obj4);
+
+                    row = row + '<tr align="left">' +
+                    '' + bank_td + '' +
+                    '<td>' + res[i].obj2 + '</td>' +
+                    '<td>' + res[i].obj3 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '</tr>';
+                }
+                row = row + '<tr class="font-weight-bold"><td colspan="2" align="right">Total</td>' +
+                '<td>' + acs + '</td><td></td><td></td>' +
+                '<td>' + commaSeparator(sanctioned_amt) + '</td>' +
+                '<td>' + commaSeparator(disbursed_amt) + '</td></tr>';
+
+                var tableId = $('#wcDetailReportTbl');
+                //tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                //createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+
+    //endregion
+
+    //region financial institute Summary Tourism and overall position
+    function initLBM() {
+        if ($('#report').val() == 'LBM') {
+            lbmByAmount();
+            lbmByRatio();
+            lbmByACS();
+            nplTrend();
+        }
+    }
+
+    function lbmByAmount() {
+        $.ajax({
+            url: _baseURL() + 'lbmByAmount',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#lbm_by_amount_tbl');
+                //tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+
+                new Morris.Line({
+                    element: 'lbm_by_amount_chart',//Div id.
+                    data: res,
+                    xkey: 'obj0', //X - Axis
+                    parseTime: false,
+                    ykeys: ['obj1', 'obj2', 'obj3', 'obj4', 'obj5'],//Y-axis
+                    labels: ['Standard', 'Watch', 'Sub-Standard', 'Doubtful', 'Loss'],
+                    lineColors: ['#2E8B57', '#ff0000', '#00b300', '#808000', '#0000e6'],
+                    /*xLabelsDiagonal: true,*/
+                    hideHover: 'auto'
+                });
+            }
+        });
+    }
+
+    function lbmByRatio() {
+        $.ajax({
+            url: _baseURL() + 'lbmByRatio',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#lbm_by_ratio_tbl');
+                //tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    function lbmByACS() {
+        $.ajax({
+            url: _baseURL() + 'lbmByACS',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#lbm_by_acs_tbl');
+                //tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+
+                new Morris.Line({
+                    element: 'lbm_by_acs_chart',//Div id.
+                    data: res,
+                    xkey: 'obj0', //X - Axis
+                    parseTime: false,
+                    ykeys: ['obj1', 'obj2', 'obj3', 'obj4', 'obj5'],//Y-axis
+                    labels: ['Standard', 'Watch', 'Sub-Standard', 'Doubtful', 'Loss'],
+                    lineColors: ['#2E8B57', '#ff0000', '#00b300', '#808000', '#0000e6'],
+                    xLabelsDiagonal: true,
+                    hideHover: 'auto',
+                    xLabelAngle: 45
+                });
+            }
+        });
+    }
+
+
+    function nplTrend() {
+        $.ajax({
+            url: _baseURL() + 'nplTrend',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                var nplAmount = [];
+                var nplACS = [];
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '</tr>';
+                    nplAmount.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+                    nplACS.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+                }
+
+
+                var tableId = $('#npl_trend_tbl');
+                //tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+
+                secondaryAxisLineChart(nplAmount, nplACS)
+            }
+        });
+    }
+
+    function secondaryAxisLineChart(nplAmount, nplACS) {
+        var chart = new CanvasJS.Chart("npl_trend_chart", {
+            animationEnabled: true,
+            height: 200,
+            title: {
+                text: "NPL Trend"
+            },
+            toolTip: {
+                shared: true
+            },
+            axisX: {
+                title: "Date",
+                suffix: ""
+            },
+            axisY: {
+                title: "NPL Amount",
+                titleFontColor: "#4F81BC",
+                suffix: " million",
+                lineColor: "#4F81BC",
+                tickColor: "#4F81BC"
+            },
+            axisY2: {
+                title: "No of Account",
+                titleFontColor: "#C0504E",
+                suffix: " unit",
+                lineColor: "#C0504E",
+                tickColor: "#C0504E"
+            },
+            data: [{
+                type: "line",
+                name: "NPL Amount",
+                showInLegend: true,
+                xValueFormatString: "",
+                yValueFormatString: "#,##0.00 (million)",
+                dataPoints: nplAmount
+            },
+                {
+                    type: "line",
+                    showInLegend: true,
+                    axisYType: "secondary",
+                    name: "NPL by no of account",
+                    yValueFormatString: "#,##0 (accounts)",
+                    dataPoints: nplACS
+                }]
+        });
+        chart.render();
+    }
+
+    //endregion
+
+    //region capital fund position.
+    function getCapitalFundList() {
+        $.ajax({
+            url: _baseURL() + 'getCapitalFundList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Date*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*BOBL*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*BNBL*/
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' + /*BDBL*/
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' + /*DPNBL*/
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' + /*TBL*/
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' + /*RICBL*/
+                    '<td>' + commaSeparator(res[i].obj7) + '</td>' + /*BIL*/
+                    '<td>' + commaSeparator(res[i].obj8) + '</td>' + /*Total amount*/
+                    '</tr>';
+                }
+                var tableId = $('#capitalFundTableId');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+
+    function getCapitalAdequacyList() {
+        $.ajax({
+            url: _baseURL() + 'getCapitalAdequacyList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Date*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*BOBL*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*BNBL*/
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' + /*BDBL*/
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' + /*DPNBL*/
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' + /*TBL*/
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' + /*RICBL*/
+                    '<td>' + commaSeparator(res[i].obj7) + '</td>' + /*BIL*/
+                    '<td>' + commaSeparator(res[i].obj8) + '</td>' + /*Total amount*/
+                    '</tr>';
+                }
+                var tableId = $('#capitalAdequacyTableId');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+
+    }
+
+
+    function getBankWiseWorkingCapital(finInstType) {
+        $.ajax({
+            url: _baseURL() + 'getBankWiseWorkingCapital',
+            type: 'GET',
+            data: {finInstType: finInstType},
+            success: function (res) {
+                var row = '';
+
+                var trd_acc = 0, trd_amt = 0.0, tour_acc = 0, tour_amt = 0.0, ind_acc = 0, ind_amt = 0.0;
+                for (var i in res) {
+                    trd_acc = trd_acc + parseFloat(res[i].obj1);
+                    trd_amt = trd_amt + parseFloat(res[i].obj2);
+
+                    tour_acc = tour_acc + parseFloat(res[i].obj3);
+                    tour_amt = tour_amt + parseFloat(res[i].obj4);
+
+                    ind_acc = ind_acc + parseFloat(res[i].obj5);
+                    ind_amt = ind_amt + parseFloat(res[i].obj6);
+
+                    row = row + '<tr align="left">' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Date*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*Trade acc*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*Trade amt*/
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' + /*Tourism Acc*/
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' + /*Tourism Amt*/
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' + /*Industries Acc*/
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' + /*Industries Amt*/
+                    '</tr>';
+                }
+
+                //Total Row.
+                row = row + '<tr class="font-weight-bold"><td  align="left">Total</td>' +
+                '<td>' + trd_acc + '</td>' +
+                '<td>' + commaSeparator(trd_amt) + '</td>' +
+                '<td>' + tour_acc + '</td>' +
+                '<td>' + commaSeparator(tour_amt) + '</td>' +
+                '<td>' + ind_acc + '</td>' +
+                '<td>' + commaSeparator(ind_amt) + '</td>' +
+                '</tr>';
+
+                var tableId = $('#bankWiseTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        })
+    }
+
+    function getNonBankWorkingCapital(finInstType) {
+        $.ajax({
+            url: _baseURL() + 'getNonBankWorkingCapital',
+            type: 'GET',
+            data: {finInstType: finInstType},
+            success: function (res) {
+
+                var row = '';
+                var trd_acc = 0, trd_amt = 0.0, tour_acc = 0, tour_amt = 0.0, ind_acc = 0, ind_amt = 0.0;
+                for (var i in res) {
+
+                    trd_acc = trd_acc + parseFloat(res[i].obj1);
+                    trd_amt = trd_amt + parseFloat(res[i].obj2);
+
+                    tour_acc = tour_acc + parseFloat(res[i].obj3);
+                    tour_amt = tour_amt + parseFloat(res[i].obj4);
+
+                    ind_acc = ind_acc + parseFloat(res[i].obj5);
+                    ind_amt = ind_amt + parseFloat(res[i].obj6);
+
+                    row = row + '<tr align="left">' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Banks*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*Trade acc*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*Trade amt*/
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' + /*Tourism Acc*/
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' + /*Tourism Amt*/
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' + /*Industries Acc*/
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' + /*Industries Amt*/
+                    '</tr>';
+                }
+
+                row = row + '<tr class="font-weight-bold"><td  align="left">Total</td>' +
+                '<td>' + trd_acc + '</td>' +
+                '<td>' + commaSeparator(trd_amt) + '</td>' +
+                '<td>' + tour_acc + '</td>' +
+                '<td>' + commaSeparator(tour_amt) + '</td>' +
+                '<td>' + ind_acc + '</td>' +
+                '<td>' + commaSeparator(ind_amt) + '</td>' +
+                '</tr>';
+                var tableId = $('#nonBankWiseTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+
+            }
+        })
+    }
+
+    function getConSectorWiseWC() {
+        $.ajax({
+            url: _baseURL() + 'getConSectorWiseWC',
+            type: 'GET',
+            success: function (res) {
+
+                var row = '';
+                var sanction_amt = 0.0, loan_os = 0.0;
+                for (var i in res) {
+
+                    sanction_amt = sanction_amt + parseFloat(res[i].obj1);
+                    loan_os = loan_os + parseFloat(res[i].obj2);
+
+
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Sector*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*Sanctioned Amount*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*Loan OS*/
+                    '</tr>';
+                }
+
+                row = row + '<tr class="font-weight-bold"><td colspan="2" align="left">Total</td>' +
+                '<td>' + commaSeparator(sanction_amt) + '</td>' +
+                '<td>' + commaSeparator(loan_os) + '</td>' +
+                '</tr>';
+                var tableId = $('#sectorWiseTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        })
+    }
+
+    function getLoanSanctionedByCsi() {
+        $.ajax({
+            url: _baseURL() + 'getLoanSanctionedByCsi',
+            type: 'GET',
+            success: function (res) {
+
+                var row = '';
+                var sanction_amt = 0.0, loan_os = 0.0, acc_total = 0;
+                for (var i in res) {
+
+                    sanction_amt = sanction_amt + parseFloat(res[i].obj1);
+                    loan_os = loan_os + parseFloat(res[i].obj2);
+                    acc_total = sanction_amt + parseFloat(res[i].obj3);
+
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' + /*Sector*/
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' + /*Sanctioned Amount*/
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' + /*number of accounts*/
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' + /*Loan OS*/
+                    '</tr>';
+                }
+
+                row = row + '<tr class="font-weight-bold"><td colspan="2" align="left">Total</td>' +
+                '<td>' + commaSeparator(sanction_amt) + '</td>' +
+                '<td>' + commaSeparator(acc_total) + '</td>' +
+                '<td>' + commaSeparator(loan_os) + '</td>' +
+                '</tr>';
+                var tableId = $('#loanSanctCSITbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        })
+    }
+
+    //endregion
+
+    function init() {
+        getCapitalFundList();
+        getCapitalAdequacyList();
+        getBankWiseWorkingCapital(1);
+        getNonBankWorkingCapital(2);
+        getConSectorWiseWC();
+        getLoanSanctionedByCsi();
+    }
+
+    return {
+        initAS: initAS,
+        initSLR: initSLR,
+        initSTO: initSTO,
+        initWC: initWC,
+        initDeposit: initDeposit,
+        initLBM: initLBM,
+        init: init
+    };
+})();
+
+$(document).ready(function () {
+    dfrsReport.initAS();
+    dfrsReport.initSLR();
+    dfrsReport.initDeposit();
+    dfrsReport.initSTO();
+    dfrsReport.initWC();
+    dfrsReport.initLBM();
+    dfrsReport.init();
+});

@@ -1,0 +1,16 @@
+DcmCICReportDao.getDCMCICReport = call sp_dcm_currency_in_circulation(:limit)
+
+DcmCICReportDao.getCurDateCurrencyInCirculation = SELECT totalAmount FROM dcm_currency_in_circulation` WHERE DATE(date) = CURDATE()
+
+DcmCICReportDao.getDcmINRList= SELECT DATE(date) date,inr_tpu,inr_plg,inr_mgr,inr_ex_counter_bnb_hq,inr_currency_chests,inr_total FROM ccr_db.dcm_inr_stock ORDER BY date DESC
+
+DcmCICReportDao.getDailyINROutflowList = SELECT DATE(date) date,inr_ex_counter_bnb_hq,inr_plg_ro,inr_mgr_ro,inr_sj_bob,inr_paro_airport_bob,inr_total FROM ccr_db.dcm_inr_out_flow ORDER BY date DESC
+
+DcmCICReportDao.getDcmINRCurDate = SELECT inr_total AS inr_total FROM dcm_inr_stock ORDER BY DATE(`date`) DESC LIMIT 1
+
+DcmCICReportDao.getDailyINROutflowCurDate = SELECT a.date,a.inr_total AS inr_total FROM dcm_inr_out_flow a ORDER BY a.date DESC LIMIT 3
+
+DcmCICReportDao.getLastFiveNuCirculation = CALL sp_dcm_last_five_NuCirculation_rpt();
+
+DcmCICReportDao.getAsOnCurrencyStock = CALL sp_dcm_get_ason_currency_stock_rpt();
+

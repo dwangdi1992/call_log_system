@@ -1,0 +1,45 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/24/2020
+  Time: 12:38 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>BTN Stock Summary</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Department of Currency Management</h1>
+    <!-- DataTales stockINR -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Total BTN Stock Summary in value</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="getDcmStockSummaryReportTable" width="100%" cellspacing="0" style="font-size: 11px;">
+                    <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="10%">Date   </th>
+                        <th width="14%">RMA Vault</th>
+                        <th width="14%">CC with banks</th>
+                        <th width="14%">RMA Ex. Counter (BNB)</th>
+                        <th width="14%">RMA RO. Phuntsholing</th>
+                        <th width="14%">RMA RO. Mongar</th>
+                        <th width="14%">Total (Nu. )</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

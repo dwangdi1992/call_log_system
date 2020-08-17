@@ -1,0 +1,56 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/30/2020
+  Time: 3:21 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Currency Chest Report</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Currency Chest Report</h1>
+    <!-- DataTales currency chest -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Currency Chest Report</h6>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="getDCMCurrencyChestReportTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>BNB Thimphu - CC 01</th>
+                        <th>BOB Thimphu - CC 02</th>
+                        <th>BNB Pling - CC 03</th>
+                        <th>BOB P/ling - CC 04</th>
+                        <th>BoB, Gelephu - CC 05</th>
+                        <th>BoB, Mongar - CC 06</th>
+                        <th>DPNBL, Tphu - CC 07</th>
+                        <th>TBank, Thimphu - CC 08</th>
+                        <th>BDB, Tphu - CC 09</th>
+                        <th>DPNBL, P/ling - CC 10</th>
+                        <th>DPNBL Gelephu - CC 11</th>
+                        <th>RMA, RO P/Ling - CC 20</th>
+                        <th>TBank Pling - CC 21</th>
+                        <th>RMA, RO Mongar -CC 22</th>
+                        <th>RMA Ex- Counter  - CC 23</th>
+                        <th>Total Amount (Nu. )</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

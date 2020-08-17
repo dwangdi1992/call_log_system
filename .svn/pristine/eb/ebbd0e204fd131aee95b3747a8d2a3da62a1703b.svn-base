@@ -1,0 +1,150 @@
+/**
+ * Created by RMA on 4/6/2020.
+ * Currency Management Department dashboard.
+ */
+
+dcm_dashboard = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL;
+    }
+
+    /**
+     * To get stock summary- DCM
+     */
+    function getDCMStockSummaryReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMStockSummaryReport',
+            type: 'GET',
+            async: false,
+            success: function (res) {
+                for (var i in res) {
+                    $('#nu_stock').html(commaSeparator(res[i].total));
+                }
+            }
+        });
+    }
+
+    /**
+     * DCM
+     */
+    function getDcmINRCurDate() {
+        $.ajax({
+            url: _baseURL() + 'getDcmINRCurDate',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    for (var i in res) {
+                        $('#inr_stock').text(commaSeparator(res[i].inr_total));
+                    }
+                }
+                else {
+                    $('#inr_stock').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    function getCurDateCurrencyInCirculation() {
+        $.ajax({
+            url: _baseURL() + 'getCurDateCurrencyInCirculation',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    $('#currurency_in_circulation').text(commaSeparator(res[0].obj1));
+                }
+                else {
+                    $('#currurency_in_circulation').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    function getDailyINROutflowCurDate() {
+        $.ajax({
+            url: _baseURL() + 'getDailyINROutflowCurDate',
+            type: 'GET',
+            success: function (res) {
+
+                if (res != null) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td>' + parseInt(parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].inr_total) + '</td>';
+                    }
+                    var tableId = $('#inrOutFlow');
+                    //tableId.dataTable().fnDestroy();
+                    tableId.find('tbody').empty().prepend(row);
+                }
+                else {
+                }
+            }
+        });
+    }
+
+    function getDCMCICReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMCICReport',
+            type: 'GET',
+            success: function (res) {
+                 var bar = new Morris.Line({
+                 element: 'dcm_currency_in_circulation_chart',
+                 resize: true,
+                 data: res,
+                 xkey: 'obj0',
+                 ykeys: ['obj1'],
+                 labels: ['Currency in Circulation'],
+                 lineColors: ['#3dde33'],
+                 hideHover: 'auto'
+                 });
+            }
+        });
+    }
+
+    function getDCMCICLatest() {
+        $.ajax({
+            url: _baseURL() + 'getDCMCICLatest',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td>' + parseInt(parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].obj0 + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].obj1) + '</td>' +
+                        '</tr>';
+                    }
+                    var tableId = $('#dcmCICTbl');
+                    tableId.find('tbody').empty().prepend(row);
+                }
+                else {
+                }
+            }
+        });
+    }
+
+
+    return {
+        getDCMStockSummaryReport: getDCMStockSummaryReport,
+        getDcmINRCurDate: getDcmINRCurDate,
+        getCurDateCurrencyInCirculation: getCurDateCurrencyInCirculation,
+        getDailyINROutflowCurDate: getDailyINROutflowCurDate,
+        getDCMCICLatest: getDCMCICLatest,
+        getDCMCICReport:getDCMCICReport
+    };
+})
+();
+
+
+$(document).ready(function () {
+    dcm_dashboard.getDCMStockSummaryReport();
+    dcm_dashboard.getDcmINRCurDate();
+    dcm_dashboard.getCurDateCurrencyInCirculation();
+    dcm_dashboard.getDailyINROutflowCurDate();
+    dcm_dashboard.getDCMCICLatest();
+    dcm_dashboard.getDCMCICReport();
+});

@@ -1,0 +1,62 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/19/2020
+  Time: 12:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
+    <title>Financial Institution's Summary Data for Tourism Industry & overall position</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <input type="hidden" id="report" value="${REPORT}"/>
+    <!-- Page Heading -->
+    <form id="stOverallForm" method="post" action="<c:url value='/'/>">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <%--<div class="form-group row">
+            <label class="label col-md-2">Report Date: </label>
+            <div class="col-md-3">
+            <input type="date"  id="reportingDate" class="form-control"/>
+                </div>
+        </div>--%>
+    </form>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10">
+                <h6 class="m-0 font-weight-bold text-primary align-center">Financial Institution's Summary Data for Tourism Industry & overall position
+                </h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="font-size:11px">
+                <table class="table table-bordered" id="depositTableId" width="100%" cellspacing="0">
+                    <thead>
+
+                    <tr>
+                        <th >#</th>
+                        <th>Financial Institution</th>
+                        <th>Deposit total (millions)</th>
+                        <th>Total loans for Tourism (millions)</th>
+                        <th>EMI in Tourism (millions)</th>
+                        <th>NPL in Tourism sector (millions)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+</body>
+</html>

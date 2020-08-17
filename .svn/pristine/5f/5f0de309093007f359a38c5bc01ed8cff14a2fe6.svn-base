@@ -1,0 +1,53 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/19/2020
+  Time: 12:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
+    <title>Deposit Report</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <input type="hidden" id="report" value="${REPORT}"/>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">SLR Report</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10">
+                <h6 class="m-0 font-weight-bold text-primary align-center">SLR Report</h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="slrReportTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="15%">Date</th>
+                        <th width="15%">Cash in Hand</th>
+                        <th width="15">Demand Deposits with foreign banks (including India)</th>
+                        <th width="20">Marketable Securities (RGOB Bonds, RMA Securities, T Bills, CPs)</th>
+                        <th width="20">Demand deposits & Term Deposits (remaining maturity less than/equal to 180 days) within Bhutan</th>
+                        <th width="20">Cash Reserve</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+</body>
+</html>

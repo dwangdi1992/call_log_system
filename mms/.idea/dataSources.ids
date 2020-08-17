@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - ccr_db@localhost" uuid="a99bb809-a601-442f-a3a2-e89d730ab9d5">
+    <database-info product="MySQL" version="5.0.86-community-nt" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.27 ( Revision: alexander.soklakov@oracle.com-20131021093118-gtm1bh1vb450xipt )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="ccr_db"/>
+    <table name="common_bank" schema="" catalog="ccr_db" type="TABLE">
+      <column name="bank_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="bank_name" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bank_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bank_type" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <column name="isactive" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="bank_id"/>
+    </table>
+    <table name="common_file_detail" schema="" catalog="ccr_db" type="TABLE">
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="file_location" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="file_type" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="report_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="file_id"/>
+    </table>
+    <table name="db_cash_ratio_acc_balace" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="bob_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bdbl_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+    <table name="db_current_acc_balace" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="bob_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3" remarks="Y2EtY3VycmVudCBhY2NvdW50"/>
+      <column name="bnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3" remarks="c2Etc3dlZXBpbmcgYWNjb3VudA=="/>
+      <column name="pnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3" remarks="Y2NyLWNhc2ggcmVzZXJ2ZSByYXRpbw=="/>
+      <column name="bdbl_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="db_gift_acc_balance" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="bob_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bdbl_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="db_sweep_acc_balance" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="bob_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bdbl_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="db_treasury" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="participant" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="rate" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bid_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="allotted_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="entry_date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="maturity_date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_currency_chest" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deno1" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno5" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno10" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno20" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno50" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno100" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno500" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deno1000" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="totalPiece" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalAmount" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="chestID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_currency_in_circulation" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deno1" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno2" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno5" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno10" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno20" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno50" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno100" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno500" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno1000" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalAmount" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_inr_out_flow" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="inr_ex_counter_bnb_hq" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_plg_ro" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_mgr_ro" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_sj_bob" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_paro_airport_bob" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_total" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_inr_stock" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="inr_tpu" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_plg" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_mgr" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_ex_counter_bnb_hq" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_currency_chests" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_total" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_stock_with_rma_fresh" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deno1" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno5" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno10" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno20" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno50" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno100" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno500" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno1000" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalPiece" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalAmount" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="stockType" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_stock_with_rma_others" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="exchange_note" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="non_issuable" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="unsorted" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dcm_stock_with_rma_reissuable" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deno1" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno5" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno10" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno20" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno50" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno100" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno500" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="deno1000" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalPiece" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="totalAmount" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dferm_aircraft_lease_repay" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cc_amount_USD" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dferm_foreign_currency_flow" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="cc_inflow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="cc_outflow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="cc_net_flow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_inflow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_outflow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_net_flow" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="createby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+    </table>
+    <table name="dferm_foreign_currency_trade" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cc_purchase" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="cc_sale" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="cc_total" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_purchase" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_sale" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_total" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dferm_govt_debt" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cc_amount_USD" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_amount_rupee" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createdate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modfieddate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dferm_private_debt" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cc_amount_USD" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dferm_reserve_position" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cc_reserve" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="inr_reserve" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="total_reserve" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="essential_import" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="import_coverage" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="remark" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="createdby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifeddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dfrs_asset_status" schema="" catalog="ccr_db" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="mgt_status" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="repayment_status" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isactive" sqlType="BIT" precision="1" scale="0" nullable="true" jdbcType="-7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="dfrs_deposit" schema="" catalog="ccr_db" type="TABLE">
+      <column name="deposit_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="deposit_type_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="deposit_sub_type" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="bank_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="account_nos" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="interest_rate" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <column name="principal" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="interest" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="total_amount" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="deposit_id"/>
+    </table>
+    <table name="dfrs_deposit_type" schema="" catalog="ccr_db" type="TABLE">
+      <column name="deposit_type_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="deposit_class" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deposit_type" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isactive" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="deposit_type_id"/>
+    </table>
+    <table name="dfrs_loan_detail" schema="" catalog="ccr_db" type="TABLE">
+      <column name="loan_detail_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="bank_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="sector_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="subsector_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="standard_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="standard_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="standard_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="watch_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="watch_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="watch_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="watch_overdue" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="substandard_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="substandard_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="substandard_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="substandard_overdue" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="doubtful_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="doubtful_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="doubtful_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="doubtful_overdue" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="loss_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="loss_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="loss_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="loss_overdue" sqlType="DECIMAL" precision="16" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="total_acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="total_pOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="total_iOuts" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="total_overdue" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="loan_detail_id"/>
+    </table>
+    <table name="dfrs_mlr" schema="" catalog="ccr_db" type="TABLE">
+      <column name="mlr_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="effective_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="bank_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="mcf" sqlType="DECIMAL" precision="5" scale="2" nullable="true" jdbcType="3"/>
+      <column name="opt_cost" sqlType="DECIMAL" precision="5" scale="2" nullable="true" jdbcType="3"/>
+      <column name="crr_cost" sqlType="DECIMAL" precision="5" scale="2" nullable="true" jdbcType="3"/>
+      <column name="mlr_rate" sqlType="DECIMAL" precision="5" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="mlr_id"/>
+    </table>
+    <table name="dfrs_sector" schema="" catalog="ccr_db" type="TABLE">
+      <column name="sector_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="sector_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sector_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sector_type" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <column name="isactive" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="sector_id"/>
+    </table>
+    <table name="dfrs_slr_input" schema="" catalog="ccr_db" type="TABLE">
+      <column name="slr_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="bank_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="slr_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="cash_in_hand" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bal_with_rma" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="dd_foreign_bank" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="marketable_security" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="dd_td_bhutan" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="cash_reserve" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="slr_id"/>
+    </table>
+    <table name="dfrs_subsector" schema="" catalog="ccr_db" type="TABLE">
+      <column name="subsector_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="sector_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="subsector_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="subsector_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isactive" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="subsector_id"/>
+    </table>
+    <table name="dfrs_working_capital" schema="" catalog="ccr_db" type="TABLE">
+      <column name="tswcf_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="client_name" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dzo_branch" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12" remarks="MSA6IFdob2xlc2VsbGVyLCAyOiBMYXJnZSBzY2FsZSByZXRhaWxlcg=="/>
+      <column name="tswcf_type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cid_tpn" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="acc_no" sqlType="VARCHAR" precision="17" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sanction_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="sanction_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="total_os" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="repayment_pri_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="repayment_int_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="collateral_type" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="collateral_value" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="tswcf_id"/>
+    </table>
+    <table name="dfrs_working_capital_hdr" schema="" catalog="ccr_db" type="TABLE">
+      <column name="wc_header_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="file_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="bank_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="report_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="sector" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sub_sector" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="acs" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="sanction_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="principal_os" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="interest_os" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="createdby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifiedby" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifieddate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="wc_header_id"/>
+    </table>
+    <table name="sa_branch_info" schema="" catalog="ccr_db" type="TABLE">
+      <column name="BR_CODE" sqlType="VARCHAR" precision="4" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BR_NAME" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BR_STATUS" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="BR_CODE"/>
+    </table>
+    <table name="sa_password_policy" schema="" catalog="ccr_db" type="TABLE">
+      <column name="PASS_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PASS_LENGTH" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="PASS_VALID" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="PASS_SPECIAL" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="PASS_ENFORCE" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="CREATEDBY" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CREATEDDATE" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="PASS_ID"/>
+    </table>
+    <table name="sa_report_display_option" schema="" catalog="ccr_db" type="TABLE">
+      <column name="RP_ID" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="RP_NAME" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="RP_ID"/>
+    </table>
+    <table name="sa_screen" schema="" catalog="ccr_db" type="TABLE">
+      <column name="SCR_ID" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SCR_NAME" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SCR_TYPE" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1" remarks="Uy1TZXR1cCBzY3JlZW4sIE8tcGVyYXRpb24gc2NyZWVuLCBSLSBSZXBvcnQgc2NyZWVu"/>
+      <column name="SCR_URL" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SCR_STATUS" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="QWN0aXZlIC0gMSBhbmQgMC0gSW5hY3RpdmU="/>
+      <primary-key name="PRIMARY" columns="SCR_ID"/>
+    </table>
+    <table name="sa_user" schema="" catalog="ccr_db" type="TABLE">
+      <column name="USRUSERID" sqlType="DECIMAL" precision="18" scale="2" nullable="false" jdbcType="3"/>
+      <column name="USRUSERNAME" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USRFULLNAME" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USRPASSWORD" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USREMPLOYEECODE" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USRAGENCYCODE" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" remarks="YnJhbmNoIGNvZGU="/>
+      <column name="USRUSERSTATUS" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USRGROUPID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="USRBADCREDENTIAL" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="CREATEDDATE" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="CREATEDBY" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USRPASSEXPIRY" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="USRUSERID"/>
+      <index name="USRUSERID" unique="true" columns="USRUSERID"/>
+    </table>
+    <table name="sa_user_group" schema="" catalog="ccr_db" type="TABLE">
+      <column name="GR_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="GR_NAME" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="GR_STATUS" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CREATEDDATE" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="CREATEDBY" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="GR_ID"/>
+    </table>
+    <table name="sa_user_group_a" schema="" catalog="ccr_db" type="TABLE">
+      <column name="AUDIT_SERIAL" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="GR_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="GR_NAME" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="GR_STATUS" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CMD_FLAG" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="CREATEDDATE" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="CREATEDBY" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="AUDIT_SERIAL"/>
+    </table>
+    <table name="sa_user_group_wise_permission" schema="" catalog="ccr_db" type="TABLE">
+      <column name="PERMISSIONID" sqlType="DECIMAL" precision="18" scale="2" nullable="false" jdbcType="3"/>
+      <column name="GROUP_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="SCREENID" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ISVIEW" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="ISSAVE" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="ISEDIT" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="ISDELETE" sqlType="CHAR" precision="1" scale="0" nullable="false" jdbcType="1"/>
+      <column name="CREATEDDATE" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="CREATEDBY" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="PERMISSIONID"/>
+    </table>
+    <table name="sa_user_log" schema="" catalog="ccr_db" type="TABLE">
+      <column name="LOG_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="USER_NAME" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_LOGIN" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_LOGOUT" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="USER_WORK_STATION" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="LOG_ID"/>
+    </table>
+    <table name="temp_bank_deposit" schema="" catalog="ccr_db" type="TABLE">
+      <column name="accType" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="bob_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pnb_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bdbl_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank_amt" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+    </table>
+    <table name="temp_deno_recieved" schema="" catalog="ccr_db" type="TABLE">
+      <column name="bob" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bnb" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="pnb" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="bdbl" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+      <column name="tbank" sqlType="DECIMAL" precision="16" scale="2" nullable="true" jdbcType="3"/>
+    </table>
+    <procedure name="USP_GET_BANK_DEPOSITS" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="selectedDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="USP_GET_DAILY_SUMMARY_RPORT" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="fromDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+        <parameter name="toDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="2"/>
+        <parameter name="branchCode" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
+      </prototype>
+    </procedure>
+    <procedure name="USP_MONTHLY_SUMMARY_REPORT" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="fromDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+        <parameter name="toDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="2"/>
+        <parameter name="branchCode" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
+      </prototype>
+    </procedure>
+    <procedure name="USP_YEARLY_SUMMARY_REPORT" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="fromDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+        <parameter name="toDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="2"/>
+        <parameter name="branchCode" sqlType="VARCHAR" precision="4" scale="0" nullable="true" jdbcType="12" type="1" index="3"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_db_get_consolidate_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="serverDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_allied_sector_position_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="P_weekNo" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_check_duplicate" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="P_dfrs_screen" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+        <parameter name="P_bankId" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" type="1" index="2"/>
+        <parameter name="P_reportDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="3"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_deposit_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="fromDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+        <parameter name="toDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="2"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_fi_summary_tourism_overall_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="P_reportDate" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_mlr_get" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="P_DATE" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_npl_position_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="P_weekNo" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" type="1" index="1"/>
+      </prototype>
+    </procedure>
+    <procedure name="sp_dfrs_slr_rpt" schema="" catalog="ccr_db" type="1">
+      <prototype>
+        <parameter name="fromDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="1"/>
+        <parameter name="toDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" type="1" index="2"/>
+      </prototype>
+    </procedure>
+  </data-source>
+</component>

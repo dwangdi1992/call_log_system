@@ -1,0 +1,91 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: RMA
+  Date: 4/13/2020
+  Time: 10:23 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div class="container-fluid">
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Bank Account Balance of two days. -->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="text-center">
+                            <label class="label label-success">Bank Balance(Current account and GIFT Settlement
+                                account)</label>
+
+                            <div id="line-chart-db-monthly"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NPL Position-->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary align-center">Loan and NPL Position of Financial
+                        Institutions (Millions)</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart" id="npl_postion_chart" style="max-height: 300px;font-size: 9px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Content Column -->
+        <div class="col-lg-12 mb-4">
+
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary align-center">Monthly Liquidity Position of Banks
+                        (Millions)
+                    </h6>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="table-responsive" style="font-size:11px ">
+                        <table class="table table-bordered" id="bankDepositTable" width="100%"
+                               cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Current A/C</th>
+                                <th>GIFT A/C</th>
+                                <th>Cash Reserve Ratio A/C</th>
+                                <th>Sweeping A/C</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+package rma.org.bt.mms.dao;
+
+import rma.org.bt.mms.global.base.BaseDaoCCR;
+
+/**
+ * ====================================================================
+ * Created by Nima Yoezer on 6/29/2020.
+ * Description:
+ * ====================================================================
+ * Modified by:
+ * Modified on:
+ * Changes made :
+ * ====================================================================
+ */
+public class ConnectToCCR_DBDao extends BaseDaoCCR{
+
+}

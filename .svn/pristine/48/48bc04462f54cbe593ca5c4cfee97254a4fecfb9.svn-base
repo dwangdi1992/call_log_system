@@ -1,0 +1,70 @@
+package rma.org.bt.mms.dao;
+
+
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import rma.org.bt.mms.global.base.BaseDao;
+import rma.org.bt.mms.model.KiduInfoDTO;
+
+import java.util.List;
+
+@Repository
+public class KiduDao extends BaseDao {
+
+    //region private variables
+    private Query hQuery;
+    //endregion
+
+    //region public methods.
+
+    /**
+     * To get kidu information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<KiduInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<KiduInfoDTO> getKiduInfo(String searchKey) {
+        sqlQuery = properties.getProperty("KiduDao.getKiduInfo");
+        hQuery = hibernateQuery(sqlQuery, KiduInfoDTO.class).setParameter("searchKey", searchKey);
+        return hQuery.list();
+    }
+
+    /**
+     * To get the list of kidu information if any.
+     *
+     * @return List<KiduInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<KiduInfoDTO> getKiduInfoList() {
+        sqlQuery = properties.getProperty("KiduDao.getKiduInfoList");
+        hQuery = hibernateQuery(sqlQuery, KiduInfoDTO.class);
+        return hQuery.list();
+    }
+
+
+    /**
+     * To get kidu information list by company.
+     *
+     * @param company String
+     * @return List<KiduInfoDTO>
+     */
+    @Transactional(readOnly = true)
+    public List<KiduInfoDTO> getKiduInfoListByCompany(String company) {
+        company = '%' + company + '%';
+        sqlQuery = properties.getProperty("KiduDao.getKiduInfoListByCompany");
+        hQuery = hibernateQuery(sqlQuery, KiduInfoDTO.class)
+                .setParameter("company", company);
+        return hQuery.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<KiduInfoDTO> getTotalKiduDisbursed() {
+        sqlQuery = properties.getProperty("KiduDao.getTotalKiduDisbursed");
+        hQuery = hibernateQuery(sqlQuery, KiduInfoDTO.class);
+//        return (KiduInfoDTO)hQuery.list().get(0);
+        return hQuery.list();
+    }
+    //endregion
+}

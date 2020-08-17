@@ -1,0 +1,15 @@
+KiduDao.getKiduInfo = SELECT A.CID searchKey, A.NAME name, A.TOTAL_KIDU totalKiduAmt, A.OCCUPATION occupation, A.SECTOR sector, A.ENTERPRISE companyName FROM  tbl_kidu_data A WHERE A.CID =:searchKey
+KiduDao.getKiduInfoList = SELECT A.CID searchKey, A.NAME name, A.OCCUPATION occupation, A.ENTERPRISE companyName,A.SECTOR sector, A.TOTAL_KIDU totalKiduAmt FROM tbl_kidu_data A ORDER BY A.NAME ASC
+
+KiduDao.getKiduInfoListByCompany = SELECT A.CID searchKey, A.NAME name, A.OCCUPATION occupation, A.ENTERPRISE companyName,A.SECTOR sector, A.TOTAL_KIDU totalKiduAmt FROM tbl_kidu_data A WHERE A.ENTERPRISE LIKE :company ORDER BY A.NAME ASC
+
+KiduDao.getTotalKiduDisbursed = SELECT 'Kidu' name,SUM(A.TOTAL_KIDU) amount FROM tbl_kidu_data A \
+                                UNION \
+                                SELECT 'Deposit',SUM(A.BALANCE) FROM tbl_deposit_data A \
+                                UNION \
+                                SELECT 'Loan', SUM(A.PRINCIPAL_OS_30_04_2020) FROM tbl_loan_data A \
+                                UNION \
+                                SELECT 'Working Capital', SUM(A.SANCTION_AMT)  FROM tbl_working_capical_all_fi A
+
+
+

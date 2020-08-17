@@ -1,0 +1,56 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/19/2020
+  Time: 12:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
+    <title>Financial Institution's Capital Fund</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10">
+                <h6 class="m-0 font-weight-bold text-primary align-center"> Financial Institution's Capital Fund
+                    (Nu. in million)</h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="font-size:10px">
+                <table class="table table-bordered" id="capitalFundTableId" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Date</th>
+                        <th colspan="7">Financial Institutions</th>
+                        <th rowspan="2">Total</th>
+                    </tr>
+                    <tr>
+                        <th>BOBL</th>
+                        <th>BNBL</th>
+                        <th>BDBL</th>
+                        <th>DPNBL</th>
+                        <th>TBL</th>
+                        <th>RICB</th>
+                        <th>BIL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+</body>
+</html>

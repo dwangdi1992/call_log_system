@@ -1,0 +1,35 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<%--
+  Created by IntelliJ IDEA.
+  User: RMA
+  Date: 4/16/2020
+  Time: 9:58 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<ul>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/reservePositionReport"/>">
+        Reserve
+        Position</a></li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/foreignCurrencyFlowReport"/>">
+        Foreign
+        Currency Flow</a></li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/foreignCurrTradeReport"/>">
+        Foreign
+        Currency Trade</a></li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/govtDebtRepaymentReport"/>">RGOB
+        Debt Repayment</a></li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/privateDebtRepaymentReport"/>">Private
+        Debt Repayment</a></li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/dfermReport/airLeaseRepaymentReport"/>">Aircraft
+        Lease Payment
+    </a></li>
+</ul>

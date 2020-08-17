@@ -1,0 +1,5 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Fri Jun 26 10:30:48 BDT 2020
+org.wso2.client.RSTA_LicenseAndVehicleInformationAPI-1.0.0-tests.jar>=
+org.wso2.client.RSTA_LicenseAndVehicleInformationAPI-1.0.0.jar>=
+org.wso2.client.RSTA_LicenseAndVehicleInformationAPI-1.0.0.pom>=

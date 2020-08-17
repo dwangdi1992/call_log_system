@@ -1,0 +1,126 @@
+/**
+ * Created by RMA on 4/6/2020.
+ * Currency Management Department dashboard.
+ */
+
+dfermDashboard = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL;
+    }
+
+    function getReservePosition() {
+        $.ajax({
+            url: _baseURL() + 'getReservePosition',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    $('#reserved_USD').text(commaSeparator(res.obj0));
+                    $('#reserved_INR').text(commaSeparator(res.obj1));
+                } else {
+                    $('#reserved_USD').text(commaSeparator(0));
+                    $('#reserved_INR').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    function getForeignCurrencyFlow() {
+        $.ajax({
+            url: _baseURL() + 'getForeignCurrencyFlow',
+            type: 'GET',
+            success: function (res) {
+                $("#fc_flow_chart").empty();
+
+                new Morris.Line({
+                    element: 'fc_flow_chart',//Div id.
+                    data: res,
+                    xkey: 'monthName', //X - Axis
+                    parseTime: false,
+                    ykeys: ['cc_net_flow', 'inr_net_flow'],//Y-axis
+                    xLabelsDiagonal: true,
+                    //xLabelAngle: 45,
+                    labels: ['USD', 'INR'],
+                    lineColors: ['#2E8B57', '#ff0000']
+                });
+            }
+        });
+    }
+
+    function getForeignCurrencyTrade() {
+        $.ajax({
+            url: _baseURL() + 'getForeignCurrencyTrade',
+            type: 'GET',
+            success: function (res) {
+                $("#fc_trade_chart").empty();
+
+                new Morris.Line({
+                    element: 'fc_trade_chart',//Div id.
+                    data: res,
+                    xkey: 'monthName', //X - Axis
+                    parseTime: false,
+                    ykeys: ['cc_total', 'inr_total'],//Y-axis
+                    xLabelsDiagonal: true,
+                    labels: ['USD', 'INR'],
+                    lineColors: ['#2E8B57', '#ff0000']
+                });
+            }
+        });
+    }
+
+
+    function getGovtDebtRepayTotal() {
+        $.ajax({
+            url: _baseURL() + 'getGovtDebtRepayTotal',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    $('#debt_USD').text(commaSeparator(res.cc_amount_USD));
+                    $('#debt_INR').text(commaSeparator(res.inr_amount_rupee));
+                } else {
+                    $('#reserved_USD').text(commaSeparator(0));
+                    $('#reserved_INR').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    function getPrivateDebtRepayTotal() {
+        $.ajax({
+            url: _baseURL() + 'getPrivateDebtRepayTotal',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    var privatePayment = (res[0].cc_amount_USD != null) ? res[0].cc_amount_USD : 0;
+                    var airlinePayment = (res[0].cc_amount_USD != null) ? res[1].cc_amount_USD : 0;
+                    $('#private_USD').text(commaSeparator(privatePayment));
+                    $('#airline_USD').text(commaSeparator(airlinePayment));
+                } else {
+                    $('#private_USD').text(commaSeparator(0));
+                    $('#airline_USD').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    return {
+        getReservePosition: getReservePosition,
+        getForeignCurrencyFlow: getForeignCurrencyFlow,
+        getForeignCurrencyTrade: getForeignCurrencyTrade,
+        getGovtDebtRepayTotal: getGovtDebtRepayTotal,
+        getPrivateDebtRepayTotal: getPrivateDebtRepayTotal
+    };
+})
+();
+
+
+$(document).ready(function () {
+    dfermDashboard.getReservePosition();
+    dfermDashboard.getForeignCurrencyFlow();
+
+    dfermDashboard.getForeignCurrencyTrade();
+
+    dfermDashboard.getGovtDebtRepayTotal();
+    dfermDashboard.getPrivateDebtRepayTotal();
+});

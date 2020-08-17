@@ -1,0 +1,172 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: RMA
+  Date: 3/23/2020
+  Time: 4:48 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Banking</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 align-center">Department of Banking</h1>
+
+    <!--Intput table card-->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Royal Government of Bhutan,Treasury Bill</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form id="treasuryBill" method="POST" action="<c:url value=''/>">
+                                        <div class="form-group row">
+                                            <label class="align-right required col-lg-2">Treasury No</label>
+
+                                            <div class="col-lg-4">
+                                                <input type="text" name="treasury_no" id="treasuryNo"
+                                                       class="form-control editable"
+                                                       required>
+                                            </div>
+
+                                            <label class="align-right required col-lg-2">Maturity
+                                                Date</label>
+
+                                            <div class="col-lg-3">
+                                                <input type="date" name="maturity_date" id="maturity_date"
+                                                       class="form-control editable"
+                                                       required>
+                                            </div>
+                                        </div>
+
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Enter Govt. Treasury Bill Detail</h3>
+                                            </div>
+                                            <table class="table" id="treasuryBillTable">
+                                                <thead>
+                                                <tr>
+                                                    <th width="5%">Sl.</th>
+                                                    <th width="20%">Participant</th>
+                                                    <th width="10%">Rate(%)</th>
+                                                    <th width="10%">Days</th>
+                                                    <th width="20%">Alloted Amount(Nu in Million)</th>
+                                                    <th width="20%">Outstanding Amount(Nu in Million)</th>
+                                                    <th width="10%"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <form:select id="participant"
+                                                                     class="form-control editable"
+                                                                     name="treasuryBillDetailDTOs[0].participant"
+                                                                     path="participantList">
+                                                            <form:option value="">---Please select---</form:option>
+                                                            <form:options items="${participantList}" itemValue="value"
+                                                                          itemLabel="text"/>
+                                                        </form:select>
+                                                    </td>
+                                                    <td><input type="text"
+                                                               class="form-control number"
+                                                               name="treasuryBillDetailDTOs[0].rate"
+                                                               id="rate" required="true"></td>
+                                                    <td class="amount"><input type="text"
+                                                                              class="form-control" required="true"
+                                                                              name="treasuryBillDetailDTOs[0].days">
+                                                    </td>
+
+                                                    <td class="amount"><input type="text"
+                                                                              class="form-control amount"
+                                                                              required="true"
+                                                                              name="treasuryBillDetailDTOs[0].allotted_amt">
+                                                    </td>
+
+                                                    <td class="amount"><input type="text"
+                                                                              class="form-control amount"
+                                                                              required="true"
+                                                                              name="treasuryBillDetailDTOs[0].outstanding_amt">
+                                                    </td>
+
+                                                    <td><label class="btnDR">
+                                                        <input type="button"
+                                                               id="addBtn" value="+">
+                                                        <input type="button" id="removeBtn"
+                                                               class="btn-primary-sm remove"
+                                                               value="-">
+                                                    </label></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <input type="reset" id="btnReset" class="btn btn-primary"
+                                                   value="Reset">
+
+                                            <%--<security:authorize access="hasRole('${SCREEN_ID}-ADD')">--%>
+                                            <input type="submit" id="btnEdit" value="Edit"
+                                                   class="btn btn-primary  editable" disabled>
+                                            <%--</security:authorize>--%>
+
+                                            <%--<security:authorize access="hasRole('${SCREEN_ID}-ADD')">--%>
+                                            <input type="submit" id="btnSave" value="Save"
+                                                   class="btn btn-primary  editable">
+                                            <%--</security:authorize>--%>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Govt. Treasury Bill<span id="treasurySerial"></span> -Participants </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="treasuryDetail" width="100%" cellspacing="0">
+                    <thead class="align-center">
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="20%">Participant</th>
+                        <th width="10%">Rate</th>
+                        <th width="10%">Days</th>
+                        <th width="20%">Alloted Amount(Nu)</th>
+                        <th width="20%">Outstanding Amount(Nu)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+</body>
+</html>

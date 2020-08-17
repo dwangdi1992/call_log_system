@@ -1,0 +1,47 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/24/2020
+  Time: 12:37 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>INR Out Flow from Counters</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">INR Out Flow from Counters</h1>
+    <!-- DataTales Daily Out flow -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daily Out flow from Counters</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="dailyOutFlow" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date   </th>
+                        <th>RMA Exchange Counter, BNB head office</th>
+                        <th>RMA RO. Phuntsholing</th>
+                        <th>RMA RO. Mongar</th>
+                        <th>BOBL S/Jongkhar</th>
+                        <th>BOBL Paro Airport</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

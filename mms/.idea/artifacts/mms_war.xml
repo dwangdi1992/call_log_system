@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="mms:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>mms</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="mms.war">
+      <element id="artifact" artifact-name="mms:war exploded" />
+    </root>
+  </artifact>
+</component>

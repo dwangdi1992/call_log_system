@@ -1,0 +1,159 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Stock Summary -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info mb-1 text-uppercase">Currency
+                                Stock (RMA + CC)
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col">
+                                    <div class="mb-0 font-weight-bold text-gray-800">INR Stock: <i
+                                            class="fas fa-rupee-sign"></i>   <span
+                                            id="inr_stock"></span></div>
+                                    <div class="mb-0 font-weight-bold text-gray-800">BTN Stock: Nu. <span
+                                            id="nu_stock"></span></div>
+                                    <hr>
+                                    <div class=" mb-0 font-weight-bold text-gray-800">
+                                        <a href="<c:url value="/dcmINRReport"/>"
+                                           style="font-size: 11px">INR
+                                            Stock</a> &nbsp; &nbsp; &nbsp;
+                                        <a href="<c:url value="/dcmStockSummary"/>"
+                                           style="font-size: 11px">BTN Stock</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- currency in circulation -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Currency in circulation
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col">
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Ngultrum:  <span
+                                            id="currurency_in_circulation"></span></div>
+                                    <div>
+                                        <a href="<c:url value="/dcmCICReport"/>"
+                                           style="font-size: 10px">Currency in circulation</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BTN Stock Report -->
+    <div class="row">
+        <%--DCM report--%>
+        <div class="col-lg-6 mb-4">
+            <!-- DataTales currency in circulation -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ngultrum in Circulation</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" style="font-size:10px ">
+                        <table class="table table-bordered"
+                               id="dcmCICTbl"
+                               width="100%" cellspacing="0">
+                            <thead class="align-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Total (Nu. )</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <a class="collapse-item text-info"
+                           href="<c:url value="/getDCMCICReport"/>"> View More >> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- DataTales currency in circulation -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Currency in Circulation Graph</h6>
+                </div>
+                <div class="card-body">
+                    <div class="box-body chart-responsive">
+                        <div class="chart" id="dcm_currency_in_circulation_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">INR Outflow</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" style="font-size:10px ">
+                        <table class="table table-bordered"
+                               id="inrOutFlow"
+                               width="100%" cellspacing="0">
+                            <thead class="align-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Total (Nu. )</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <a class="collapse-item text-info"
+                           href="<c:url value="/dcmINRReport/INROutflowReport"/>"> View More >> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-md-6 mb-4">
+            <div id="accordion">
+                <div class="card mb-0">
+                    <div class="card-header " data-toggle="collapse" href="#dcm-collapse">
+                        <h6 class="card-title m-0 font-weight-bold text-primary">Currency Management Details</h6>
+                    </div>
+                    <div id="dcm-collapse" class="card-body collapse" data-parent="#accordion">
+                        <jsp:include page="menu/dcm-menu.jsp"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>mysqljavax.validation</groupId>
+  <artifactId>validation-api</artifactId>
+  <versioning>
+    <release>2.0.1.Final</release>
+    <versions>
+      <version>2.0.1.Final</version>
+    </versions>
+    <lastUpdated>20200618102553</lastUpdated>
+  </versioning>
+</metadata>

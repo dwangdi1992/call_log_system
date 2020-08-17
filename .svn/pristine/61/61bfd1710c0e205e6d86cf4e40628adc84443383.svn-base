@@ -1,0 +1,146 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: RMA
+  Date: 3/23/2020
+  Time: 4:48 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Minimum Lending Rate</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 align-center">Minimum Lending Rate</h1>
+
+    <!--Intput table card-->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Minimum Lending Rate</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form id="mlrForm" method="POST" action="<c:url value='/mlr/save'/>"
+                                          enctype="multipart/form-data">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 reguired" for="effective_date">Effective Date</label>
+                                            <div class="col-lg-4">
+                                                <input type="date" class="form-control" name="effective_date" id="effective_date">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 reguired" for="bank_id">Financial Institution</label>
+                                            <div class="col-lg-4">
+                                                <form:select name="bank_id" id="bank_id"
+                                                             class="form-control editable bank_id" path="banks">
+                                                    <form:option value="">--Please select--</form:option>
+                                                    <form:options items="${banks}" itemValue="value"
+                                                                  itemLabel="text"/>
+                                                </form:select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 reguired" for="mcf">MCF (%)</label>
+                                            <div class="col-lg-4">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control amount mcf" name="mcf" maxlength="5">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <label class="col-lg-2 reguired" for="opt_cost">Operating cost (%)</label>
+                                            <div class="col-lg-4">
+                                                <div class="input-group">
+                                                    <input type="text" id="opt_cost" class="form-control amount opt_cost" name="opt_cost" maxlength="5">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 reguired" for="crr_cost">CRR Cost (%)</label>
+                                            <div class="col-lg-4">
+                                                <div class="input-group">
+                                                    <input type="text" id="crr_cost" class="form-control amount crr_cost" name="crr_cost" maxlength="5">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="col-lg-2 reguired" for="mlr_rate">MLR (%)</label>
+                                            <div class="col-lg-4">
+                                                <div class="input-group">
+                                                    <input type="text" id="mlr_rate" class="form-control amount mlr_rate" name="mlr_rate" maxlength="5">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="reset" id="btnReset" class="btn btn-primary"
+                                                   value="Reset">
+
+                                            <%--<security:authorize access="hasRole('${SCREEN_ID}-ADD')">--%>
+                                            <input type="submit" id="btnSave" value="Save"
+                                                   class="btn btn-primary  editable">
+                                            <%--</security:authorize>--%>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="mlrTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>SL no</th>
+                        <th>Effective Date</th>
+                        <th>Financial Institution</th>
+                        <th>Marginal Cost of Fund MCF (%)</th>
+                        <th>Operating cost (%)</th>
+                        <th>CRR Cost (%)</th>
+                        <th>MLR (%)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+</body>
+</html>

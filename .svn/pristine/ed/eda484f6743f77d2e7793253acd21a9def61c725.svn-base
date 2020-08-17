@@ -1,0 +1,137 @@
+﻿/**
+ * Created By Dechen Wangdi on 05/12/2019
+ */
+
+var loadScript = function () {
+
+    if (document.URL.search("usersetup") > 1) {
+        scriptLoader("setup/userSetup");
+    }
+
+    if (document.URL.search("permissionSetup") > 1) {
+        scriptLoader("setup/permissionSetup");
+    }
+
+    if (document.URL.search("changePassword") > 1) {
+        scriptLoader("setup/changePassword");
+    }
+    if (document.URL.search("passwordPolicy") > 1) {
+        scriptLoader("setup/passwordPolicy");
+    }
+
+    if (document.URL.search("groupSetup") > 1) {
+        scriptLoader("setup/groupSetup");
+    }
+
+    if (document.URL.search("branchSetup") > 1) {
+        scriptLoader("setup/branchSetup");
+    }
+
+    if (document.URL.search("fileUpload") > 1) {
+        scriptLoader("setup/fileUpload");
+    }
+
+    //Operation
+    if (document.URL.search("bankDeposit") > 1) {
+        scriptLoader("db/bankDeposit");
+    }
+
+    if (document.URL.search("treasuryBill") > 1) {
+        scriptLoader("db/treasuryBill");
+    }
+
+    if (document.URL.search("govtConsolidateAcc") > 1) {
+        scriptLoader("db/govtConsolidateAcc");
+    }
+
+    if (document.URL.search("nationalResilientFund") > 1) {
+        scriptLoader("db/nationalResilientFund");
+    }
+
+    if (document.URL.search("dfrs_input") > 1) {
+        scriptLoader("dfrs/dfrs_input");
+    }
+
+    if (document.URL.search("mlr") > 1) {
+        scriptLoader("dfrs/dfrs_mlr");
+    }
+
+    if (document.URL.search("capitalEntry") > 1) {
+        scriptLoader("dfrs/capitalEntry");
+    }
+
+    if (document.URL.search("dcmCICInput") > 1) {
+        scriptLoader("dcm/dcmCICInput");
+    }
+
+    if (document.URL.search("dcmCurrencyChestInput") > 1) {
+        scriptLoader("dcm/dcmCurrencyChestInput");
+    }
+
+    if (document.URL.search("dcmCurrencyChestInput") > 1) {
+        scriptLoader("dcm/dcmCurrencyChestInput");
+    }
+
+    if (document.URL.search("dcmStockWithRma") > 1) {
+        scriptLoader("dcm/dcmStockWithRma");
+    }
+
+    if (document.URL.search("dcmINRInput") > 1) {
+        scriptLoader("dcm/dcmINRInput");
+    }
+    if (document.URL.search("dfermEntry") > 1) {
+        scriptLoader("dferm/dfermEntry");
+    }
+
+    //Reports
+    if (document.URL.search("dfrsReport") > 1) {
+        scriptLoader("reports/dfrsReport");
+    }
+
+    if (document.URL.search("dcmCICReport") > 1) {
+        scriptLoader("reports/dcmCICReport");
+    }
+
+    if (document.URL.search("dcmStockSummary") > 1) {
+        scriptLoader("reports/dcmStockSummary");
+    }
+
+    if (document.URL.search("dfrsDepositReport") > 1) {
+        scriptLoader("reports/dfrsDepositReport");
+    }
+
+    if (document.URL.search("bankReport") > 1) {
+        scriptLoader("reports/bankReport");
+    }
+
+    if (document.URL.search("dcmINRReport") > 1) {
+        scriptLoader("reports/dcmINRReport");
+    }
+
+    if (document.URL.search("dcmCurrencyChestReport") > 1) {
+        scriptLoader("reports/dcmCurrencyChestReport");
+    }
+
+    if (document.URL.search("dfermReport") > 1) {
+        scriptLoader("reports/dfermReport");
+    }
+    if (document.URL.search("dashboard") > 1) {
+        scriptLoader("dashboard2");
+    }
+};
+
+var scriptLoader = function (url) {
+    //TODO for production environment
+    url = globalConf.context + '/resources/js/' + url + '.js';
+    //url = window.location.host+'/resources/js/' + url + '.js';
+
+    $.ajax(
+        {
+            type: "GET",
+            url: url,
+            dataType: "script",
+            cache: false
+            //cache: prodEnv
+        }
+    );
+};

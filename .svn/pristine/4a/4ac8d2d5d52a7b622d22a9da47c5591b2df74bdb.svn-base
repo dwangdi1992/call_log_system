@@ -1,0 +1,23 @@
+BankDepositDao.getBankDepositDetail = CALL sp_db_get_consolidate_rpt();
+
+BankDepositDao.getCurrAndGiftBalance = CALL sp_db_cur_gift_acc_bal_rpt();
+
+BankDepositDao.getCurAccBalList = CALL sp_db_current_acc_bal_rpt();
+
+BankDepositDao.getGiftAccBalList = CALL sp_db_gift_acc_bal_rpt()
+
+BankDepositDao.getCashReserveRatioList = CALL sp_db_crr_acc_bal_rpt()
+
+BankDepositDao.getSweepAccBalList = CALL sp_db_sweep_acc_bal_rpt()
+
+BankDepositDao.getMonthlyBankDepositList = CALL sp_db_get_acc_balance_monthly(:year);
+
+BankDepositDao.getCashReserveRatioTrend = CALL sp_db_cash_reserve_ratio_rpt(:reportType);
+
+BankDepositDao.getCurrPlusGiftBalance = CALL sp_db_get_current_plus_gift_bal_rpt(:reportType)
+
+BankDepositDao.getAsOnLiquidityPosition = CALL sp_db_get_ason_liquidity_postion_rpt()
+
+
+
+

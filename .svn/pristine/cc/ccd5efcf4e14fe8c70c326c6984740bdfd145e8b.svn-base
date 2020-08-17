@@ -1,0 +1,502 @@
+/**
+ * Created by RMA on 3/23/2020.
+ */
+
+dashboard = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL;
+    }
+
+    /**
+     * Get Bank deposit balance -DB.
+     */
+    function getBankDepositDetail() {
+        $.ajax({
+            url: _baseURL() + 'getBankDepositDetail',
+            type: 'GET',
+            success: function (res) {
+                var currentAcc = 0.0;
+                var sweepingAcc = 0.0;
+                var cashRatioAcc = 0.0;
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr>' +
+                    '<td>' + res[i].bankCode + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].currentAcc) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].sweepingAcc) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cashReserveRatio) + '</td>'
+
+                    currentAcc += parseFloat(res[i].currentAcc);
+                    sweepingAcc += parseFloat(res[i].sweepingAcc);
+                    cashRatioAcc += parseFloat(res[i].cashReserveRatio);
+                }
+                var tableId = $('#bankDepositDetail');
+                tableId.find('tbody').empty().prepend(row);
+                $('#currentAcc').text(commaSeparator(currentAcc));
+                $('#sweepingAcc').text(commaSeparator(sweepingAcc));
+                $('#cashRatioAcc').text(commaSeparator(cashRatioAcc));
+
+            }
+        });
+    }
+
+    /**
+     * To get FRS deposit - DFRS.
+     */
+    function getFRSDDeposit() {
+        $.ajax({
+            url: _baseURL() + 'getFRSDDeposit',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj9) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj10) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#depositTbl');
+                tableId.find('tbody').empty().prepend(row);
+            }
+        });
+    }
+
+    /**
+     * To get WC Grand total - DFRS.
+     */
+    function getWCGrandTotal() {
+        $.ajax({
+            url: _baseURL() + 'getWCGrandTotal',
+            type: 'GET',
+            success: function (res) {
+                $('#wc_disbursed_amt').html(commaSeparator(res.obj2));
+                $('#wc_sanction_amt').html(commaSeparator(res.obj1));
+                $('#wc_acs').html(res.obj0);
+            }
+        });
+    }
+
+    /**
+     * To get NPL position - DFRS
+     */
+    function getNPLPosition() {
+        if ($('#npl_postion_chart').length > 0) {
+            $.ajax({
+                url: _baseURL() + 'getNPLPosition',
+                type: 'GET',
+                success: function (res) {
+                    $('#nplAsOf').text((res[0].obj3 == null ? '' : res[0].obj3));
+                    var bar = new Morris.Bar({
+                        element: 'npl_postion_chart',
+                        data: res,
+                        xkey: 'obj0',
+                        ykeys: ['obj1', 'obj2'],
+                        labels: ['Total loan (in million)', 'NPL (in million)'],
+                        xLabelsDiagonal: true,
+                        xLabelAngle: 45,
+                        lineColors: ['#d4efdf', '#fc0352'],
+                        barColors: ['#ADD8E6', '#FF5733'],
+                        hideHover: 'auto',
+                        resize: true
+                    });
+
+                }
+            });
+        }
+    }
+
+
+    function nplTrend() {
+
+        $.ajax({
+            url: _baseURL() + 'nplTrend',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                var nplAmount = [];
+                var nplACS = [];
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '</tr>';
+                    nplAmount.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+                    nplACS.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+                }
+
+
+                var tableId = $('#npl_trend_tbl');
+                tableId.find('tbody').empty().prepend(row);
+                var chart = new CanvasJS.Chart("npl_trend_chart", {
+                    animationEnabled: true,
+                    height: 200,
+                    title: {
+                        text: "NPL Trend"
+                    },
+                    toolTip: {
+                        shared: true
+                    },
+                    axisX: {
+                        title: "Date",
+                        suffix: ""
+                    },
+                    axisY: {
+                        title: "NPL Amount",
+                        titleFontColor: "#4F81BC",
+                        suffix: " million",
+                        lineColor: "#4F81BC",
+                        tickColor: "#4F81BC"
+                    },
+                    axisY2: {
+                        title: "No of Account",
+                        titleFontColor: "#C0504E",
+                        suffix: " unit",
+                        lineColor: "#C0504E",
+                        tickColor: "#C0504E"
+                    },
+                    data: [{
+                        type: "line",
+                        name: "NPL Amount",
+                        showInLegend: true,
+                        xValueFormatString: "",
+                        yValueFormatString: "#,##0.00 (million)",
+                        dataPoints: nplAmount
+                    },
+                        {
+                            type: "line",
+                            showInLegend: true,
+                            axisYType: "secondary",
+                            name: "NPL by no of account",
+                            yValueFormatString: "#,##0 (accounts)",
+                            dataPoints: nplACS
+                        }]
+                });
+                chart.render();
+            }
+        });
+    }
+
+    /**
+     * To get reservation - DFERM
+     */
+    function getReservePosition() {
+        $.ajax({
+            url: _baseURL() + 'getReservePosition',
+            type: 'GET',
+            success: function (res) {
+                var reserved_USD = $('#usd-res-indicator');
+                var reserved_INR = $('#inr-res-indicator');
+                if (res != null) {
+                    $('#reserved_USD').text(commaSeparator(res.obj0));
+                    $('#reserved_INR').text(commaSeparator(res.obj1));
+
+                    if (res.obj3 == 0 || res.obj4 == 0) {
+                        $('.equal').html('<i class="fas fa-square"></i>');
+                    }
+
+                    //USD Reserved
+                    (res.obj3 < 0) ? reserved_USD.html('<i class="far fa-arrow-alt-circle-down badge-danger"></i>') : reserved_USD.html('<i class="far fa-arrow-alt-circle-up badge-success"></i>');
+
+                    //INR Reserved.
+                    (res.obj4 < 0) ? reserved_INR.html('<i class="far fa-arrow-alt-circle-down badge-danger"></i>') : reserved_INR.html('<i class="far fa-arrow-alt-circle-up badge-success"></i>');
+
+                } else {
+                    $('#reserved_USD').text(commaSeparator(0));
+                    $('#reserved_INR').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    /**
+     * To get stock summary- DCM
+     */
+    function getDCMStockSummaryReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMStockSummaryReport',
+            type: 'GET',
+            success: function (res) {
+                for (var i in res) {
+                    $('#nu_stock').text(commaSeparator(res[i].total));
+                }
+            }
+        });
+    }
+
+    /**
+     * DCM
+     */
+    function getDcmINRCurDate() {
+        $.ajax({
+            url: _baseURL() + 'getDcmINRCurDate',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    for (var i in res) {
+                        $('#inr_stock').text(commaSeparator(res[i].inr_total));
+                    }
+                }
+                else {
+                    $('#inr_stock').text(commaSeparator(0));
+                }
+            }
+        });
+    }
+
+    /**
+     * To get currency in circulation information -DCm
+     */
+    function getDCMCICLatest() {
+        $.ajax({
+            url: _baseURL() + 'getDCMCICLatest',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td>' + parseInt(parseInt(i) + 1) + '</td>' +
+                        '<td>' + res[i].obj0 + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].obj1) + '</td>' +
+                        '</tr>';
+                    }
+                    var tableId = $('#dcmCICTbl');
+                    tableId.find('tbody').empty().prepend(row);
+                }
+                else {
+                }
+            }
+        });
+    }
+
+    /* */
+    /**
+     * To get daily INR outflow - DCM
+     */
+    /*
+     function getDailyINROutflowCurDate() {
+     $.ajax({
+     url: _baseURL() + 'getDailyINROutflowCurDate',
+     type: 'GET',
+     success: function (res) {
+     if (res != null) {
+     $('#inr_outFlow').text(commaSeparator(res.inr_total));
+     }
+     else {
+     $('#inr_outFlow').text(commaSeparator(0));
+     }
+     }
+     });
+     }*/
+
+    /**
+     * To get current and GIFT settlement account balance - DB
+     */
+    function getCurrAndGiftBalance() {
+        if ($('#line-chart-db').length > 0) {
+            $.ajax({
+                url: _baseURL() + 'getCurrAndGiftBalance',
+                type: 'GET',
+                success: function (res) {
+                    new Morris.Line({
+                        element: 'line-chart-db',//Div id.
+                        data: res,
+                        xkey: 'date', //X - Axis
+                        parseTime: false,
+                        ykeys: ['bob_amt', 'bnb_amt', 'pnb_amt', 'bdbl_amt', 'tbank_amt'],//Y-axis
+                        labels: ['BOBL', 'BNBL', 'DPNBL', 'BDBL', 'T Bank'],
+                        lineColors: ['#2E8B57', '#ff0000', '#00b300', '#808000', '#0000e6']
+                    });
+                }
+            });
+        }
+    }
+
+    /**
+     * To get foreign currenct flow - DFERM
+     * @param currencyCode
+     */
+    function getForeignCurrencyFlow(currencyCode) {
+        $.ajax({
+            url: _baseURL() + 'getForeignCurrencyFlow',
+            type: 'GET',
+            data: {currencyCode: currencyCode},
+            success: function (res) {
+                $("#fc_flow_chart").empty();
+
+                var bar = new Morris.Bar({
+                    element: 'fc_flow_chart',
+                    data: res,
+                    xkey: 'monthName',
+                    ykeys: ['inflowTotal', 'outTotal'],
+                    labels: ['Inflow ' + currencyCode, 'Outflow ' + currencyCode],
+                    lineColors: ['#FF5733', '#3dde33'],
+                    hideHover: 'auto',
+                    resize: true
+                });
+            }
+        });
+    }
+
+    /**
+     * To get INR foreign current flow - DFERM
+     */
+    function getForeignCurrencyINRFlow() {
+        $(".currency").on('click', function () {
+            var currencyCode = $(this).val();
+            getForeignCurrencyFlow(currencyCode)
+        });
+    }
+
+    /**
+     * To get foreign currency Trade - DFERM
+     * @param currencyCode
+     */
+    function getForeignCurrencyTrade(currencyCode) {
+        $.ajax({
+            url: _baseURL() + 'getForeignCurrencyTrade',
+            type: 'GET',
+            data: {currencyCode: currencyCode},
+            success: function (res) {
+                $("#fc_trade_chart").empty();
+
+                var bar = new Morris.Bar({
+                    element: 'fc_trade_chart',
+                    data: res,
+                    xkey: 'monthName',
+                    ykeys: ['purchaseTotal', 'saleTotal'],
+                    labels: ['purchaseTotal ' + currencyCode, 'saleTotal ' + currencyCode],
+                    lineColors: ['#FF5733', '#3dde33'],
+                    hideHover: 'auto',
+                    resize: true
+                });
+            }
+        });
+    }
+
+    /**
+     * To get foreign current trade INR.
+     */
+    function getForeignCurrencyTradeINR() {
+        $(".currencyTrade").on('click', function () {
+            var currencyCode = $(this).val();
+            getForeignCurrencyTrade(currencyCode)
+        });
+    }
+
+
+    /**
+     * To get foreign currency inflow-outflow(Flow)- DFERM
+     */
+    function getForCurrFlow() {
+        $.ajax({
+            url: _baseURL() + 'getForCurrFlow',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td class="font-weight-bold">' + res[i].currencyCode + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc_inflow) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc_outflow) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc_net_flow) + '</td>'
+                }
+                var tableId = $('#foreignCurrFlowTable');
+                tableId.find('tbody').empty().prepend(row);
+            }
+        });
+    }
+
+    /**
+     * and foreign currency purchase -sale(Trade) - DFERM
+     */
+    function getForCurrTrade() {
+        $.ajax({
+            url: _baseURL() + 'getForCurrTrade',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td class="font-weight-bold">' + res[i].currencyCode + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc_purchase) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc_sale) + '</td>' +
+                        //'<td class="align-right">' + commaSeparator(res[i].cc_total) + '</td>'
+                    '<td class="align-right">' + res[i].cc_total + '</td>'
+                }
+                var tableId = $('#foreignCurrTradeTable');
+                tableId.find('tbody').empty().prepend(row);
+            }
+        });
+    }
+
+    function getAsOnNationalResFund() {
+        $.ajax({
+            url: _baseURL() + 'getAsOnNationalResFund',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    $('#currentDate').text(res.entry_date);
+                    $('#nation-res-amt').text(commaSeparator(res.amount));
+                } else {
+                    $('#nation-res-amt').text('0.0');
+                }
+            }
+        });
+    }
+
+    return {
+        getBankDepositDetail: getBankDepositDetail,
+        getFRSDDeposit: getFRSDDeposit,
+        getNPLPosition: getNPLPosition,
+        nplTrend: nplTrend,
+        getReservePosition: getReservePosition,
+        getDCMStockSummaryReport: getDCMStockSummaryReport,
+        getDcmINRCurDate: getDcmINRCurDate,
+        //getDailyINROutflowCurDate: getDailyINROutflowCurDate,
+        getWCGrandTotal: getWCGrandTotal,
+        //getCurDateCurrencyInCirculation: getCurDateCurrencyInCirculation,
+        getCurrAndGiftBalance: getCurrAndGiftBalance,
+        getForCurrFlow: getForCurrFlow,
+        getForCurrTrade: getForCurrTrade,
+        getDCMCICLatest: getDCMCICLatest,
+        getAsOnNationalResFund: getAsOnNationalResFund
+
+        //TODO DFERM currency flow and trading with bank
+        //getForeignCurrencyFlow: getForeignCurrencyFlow,
+        //getForeignCurrencyINRFlow: getForeignCurrencyINRFlow,
+        //getForeignCurrencyTrade: getForeignCurrencyTrade,
+        //getForeignCurrencyTradeINR: getForeignCurrencyTradeINR
+    };
+})
+();
+
+
+$(document).ready(function () {
+    dashboard.getBankDepositDetail();
+    dashboard.getFRSDDeposit();
+    dashboard.getNPLPosition();
+    dashboard.nplTrend();
+    dashboard.getReservePosition();
+    dashboard.getDCMStockSummaryReport();
+    dashboard.getDcmINRCurDate();
+    //dashboard.getDailyINROutflowCurDate();
+    dashboard.getWCGrandTotal();
+    //dashboard.getCurDateCurrencyInCirculation();
+    dashboard.getCurrAndGiftBalance();
+    dashboard.getForCurrFlow();
+    dashboard.getForCurrTrade();
+    dashboard.getDCMCICLatest();
+    dashboard.getAsOnNationalResFund();
+
+    //TODO no required as of now.
+    /* dashboard.getForeignCurrencyFlow('USD');
+     dashboard.getForeignCurrencyINRFlow();
+     dashboard.getForeignCurrencyTrade('USD');
+     dashboard.getForeignCurrencyTradeINR('USD');*/
+});

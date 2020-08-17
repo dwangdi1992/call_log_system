@@ -1,0 +1,192 @@
+/**
+ * Created by RMA on 3/23/2020.
+ */
+
+dfrsDashboard = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL;
+    }
+
+
+    /**
+     * To get FRS deposit - DFRS.
+     */
+    function getFRSDDeposit() {
+        $.ajax({
+            url: _baseURL() + 'getFRSDDeposit',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj9) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj10) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#depositTbl');
+                tableId.find('tbody').empty().prepend(row);
+            }
+        });
+    }
+
+    /**
+     * To get WC Grand total - DFRS.
+     */
+    function getWCGrandTotal() {
+        $.ajax({
+            url: _baseURL() + 'getWCGrandTotal',
+            type: 'GET',
+            success: function (res) {
+                $('#wc_disbursed_amt').html(commaSeparator(res.obj2));
+                $('#wc_sanction_amt').html(commaSeparator(res.obj1));
+                $('#wc_acs').html(res.obj0);
+            }
+        });
+    }
+
+    /**
+     * To get NPL position - DFRS
+     */
+    function getNPLPosition() {
+        $.ajax({
+            url: _baseURL() + 'getNPLPosition',
+            type: 'GET',
+            success: function (res) {
+                $('#nplAsOf').text((res[0].obj3 == null?'':res[0].obj3));
+                var bar = new Morris.Bar({
+                    element: 'npl_postion_chart',
+                    data: res,
+                    xkey: 'obj0',
+                    ykeys: ['obj1', 'obj2'],
+                    labels: ['Total loan', 'NPL'],
+                    lineColors: ['#d4efdf', '#fc0352'],
+                    barColors: ['#ADD8E6', '#FF5733'],
+                    hideHover: 'auto',
+                    xLabelsDiagonal: true,
+                    xLabelAngle:45,
+                    resize: true
+                });
+
+            }
+        });
+    }
+
+    function nplTrend(){
+
+        $.ajax({
+            url: _baseURL() + 'nplTrend',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                var nplAmount = [];
+                var nplACS = [];
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '</tr>';
+                    nplAmount.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+                    nplACS.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+                }
+
+
+                var tableId = $('#npl_trend_tbl');
+                tableId.find('tbody').empty().prepend(row);
+                var chart = new CanvasJS.Chart("npl_trend_chart", {
+                    animationEnabled: true,
+                    height: 200,
+                    title: {
+                        text: "NPL Trend"
+                    },
+                    toolTip: {
+                        shared: true
+                    },
+                    axisX: {
+                        title: "Date",
+                        suffix: ""
+                    },
+                    axisY: {
+                        title: "NPL Amount",
+                        titleFontColor: "#4F81BC",
+                        suffix: " million",
+                        lineColor: "#4F81BC",
+                        tickColor: "#4F81BC"
+                    },
+                    axisY2: {
+                        title: "No of Account",
+                        titleFontColor: "#C0504E",
+                        suffix: " unit",
+                        lineColor: "#C0504E",
+                        tickColor: "#C0504E"
+                    },
+                    data: [{
+                        type: "line",
+                        name: "NPL Amount",
+                        showInLegend: true,
+                        xValueFormatString: "",
+                        yValueFormatString: "#,##0.00 (million)",
+                        dataPoints: nplAmount
+                    },
+                        {
+                            type: "line",
+                            showInLegend: true,
+                            axisYType: "secondary",
+                            name: "NPL by no of account",
+                            yValueFormatString: "#,##0 (accounts)",
+                            dataPoints: nplACS
+                        }]
+                });
+                chart.render();
+            }
+        });
+    }
+
+    function getMLR(){
+        if($('#mlrTbl').length > 0){
+            $.ajax({
+                url: _baseURL() + 'getMLR',
+                type: 'GET',
+                success: function (res) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td>' + (parseInt(i) + 1) + '</td>' +
+                        '<td>' + res[i].obj2 + '</td>' +
+                        '<td>' + res[i].obj1 + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                        '</tr>';
+                    }
+                    var tableId = $('#mlrTbl');
+                    tableId.find('tbody').empty().prepend(row);
+
+                }
+            });
+        }
+    }
+
+    return {
+        getFRSDDeposit: getFRSDDeposit,
+        getNPLPosition: getNPLPosition,
+        getWCGrandTotal: getWCGrandTotal,
+        getMLR: getMLR,
+        nplTrend:nplTrend
+    };
+})
+();
+
+
+$(document).ready(function () {
+    dfrsDashboard.getFRSDDeposit();
+    dfrsDashboard.getNPLPosition();
+    dfrsDashboard.getWCGrandTotal();
+    dfrsDashboard.getMLR();
+    dfrsDashboard.nplTrend();
+});

@@ -1,0 +1,5 @@
+FileUploadDao.getUploadedFileList = SELECT A.file_id, A.file_name, A.file_location,A.report_date reportDate FROM common_file_detail A WHERE A.createdby =:userName ORDER BY A.report_date DESC
+
+FileUploadDao.deleteFileByUserID = CALL sp_delete_file(:fileId,:userName,:serverDate)
+
+FileUploadDao.getFileUploadByFileId = SELECT A.file_id, A.file_name, A.file_location FROM common_file_detail A WHERE A.file_id=:fileId

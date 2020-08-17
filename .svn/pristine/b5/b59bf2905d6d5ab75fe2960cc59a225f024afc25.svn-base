@@ -1,0 +1,1 @@
+GovtConsolidateDao.getGovConsolidateBalance = CALL sp_db_govt_con_acc_bal_rpt()

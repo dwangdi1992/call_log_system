@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Jul 20 10:48:10 ALMT 2020
+org.wso2.client.DCRC_AllCitizenDetailsAPI-1.0.0.pom>=
+org.wso2.client.DCRC_AllCitizenDetailsAPI-1.0.0-tests.jar>=
+org.wso2.client.DCRC_AllCitizenDetailsAPI-1.0.0.jar>=

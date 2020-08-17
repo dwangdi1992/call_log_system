@@ -1,0 +1,35 @@
+DFERMEntryDao.getAsOnReservePosition = CALL sp_dferm_get_ason_reserve_position_rpt();
+
+DFERMEntryDao.getReservePositionList = CALL sp_dferm_reserve_position_list_rpt()
+
+DFERMEntryDao.getForeignCurrencyFlowList = CALL sp_dferm_curr_flow_list_rpt()
+
+DFERMEntryDao.getForeignCurrTradeList =  CALL sp_dferm_curr_trade_list_rpt()
+
+DFERMEntryDao.govtDebtRepaymentList = CALL sp_dferm_gov_debt_list();
+
+DFERMEntryDao.privateDebtRepaymentList = CALL sp_dferm_priv_debt_list();
+
+DFERMEntryDao.getAirLeaseRepaymentList =CALL sp_dferm_airline_debt_list();
+
+DFERMEntryDao.getForeignCurrencyFlow = CALL sp_dferm_forcur_flow_chart_rpt()
+
+DFERMEntryDao.getForeignCurrencyTrade = CALL sp_dferm_forcur_trade_chart_rpt()
+
+DFERMEntryDao.getGovtDebtRepayTotal = CALL sp_dferm_gov_debt_total_rpt()
+
+DFERMEntryDao.getPrivateDebtRepayTotal = CALL sp_dferm_pri_debt_total_rpt()
+
+DFERMEntryDao.getForCurrFlow = CALL sp_dferm_forcur_flow_rpt();
+
+DFERMEntryDao.getForCurrTrade = CALL sp_dferm_forcurr_trade_rpt();
+
+DFERMEntryDao.getReservePosition = CALL sp_dferm_lastest_reserve_position_rpt(:reportType);
+
+DFERMEntryDao.getINRAndCCNetTrend = CALL sp_dferm_last_currency_flow_rpt(:reportType)
+
+DFERMEntryDao.getLastFiveDaysCurrencyTrade = CALL sp_dferm_last_five_net_currency_trade_rpt()
+
+DFERMEntryDao.getMonthsOfImportCoverage = CALL sp_dferm_import_coverage_rpt(:reportType)
+
+DFERMEntryDao.getINRReserveTrend = CALL sp_dferm_inr_reserve_rpt(:reportType);

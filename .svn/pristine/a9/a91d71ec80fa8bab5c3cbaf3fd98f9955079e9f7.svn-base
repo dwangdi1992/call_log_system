@@ -1,0 +1,278 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authentication var="auth" property="principal"/>
+<c:url value="/logout" var="logoutUrl"/>
+
+<form action="${logoutUrl}" method="post" id="logoutForm">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>COVID-19 Monetary Measure</title>
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <!--Intput table card-->
+    <div class="card shadow mb-4">
+        <div class="card-body row">
+            <div class="col-lg-6">
+                <form method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <div class="form-group">
+                        <label for="keyword">Search By</label>
+                        <input type="text" class="form-control" name="keyword"
+                               id="keyword" required="true" placeholder="Enter CID/TPN/LicenseNo">
+                    </div>
+                    <%--<div class="form-group">
+&lt;%&ndash;                        <label for="accountNo">Account No</label>&ndash;%&gt;
+                        <input type="text" class="form-control" id="accountNo" name="accountNo"
+                               placeholder="Enter Account No.">
+                    </div>--%>
+
+                    <button type="button" class="btn btn-primary" id="btnSearch">Search</button>
+                </form>
+            </div>
+
+            <div class="col-lg-6">
+                <label>Personal Information.</label><br>
+                CID No.<br>
+                Name<br>
+                Dzongkhag:<br>
+                Gewog:<br>
+                Village:<br>
+            </div>
+        </div>
+    </div>
+
+    <%-- Loan Detail --%>
+    <div class="card shadow mb-4" hidden id="loanDetailDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Loan Detail</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="loanDetailTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Loan Account No</th>
+                        <th>Sector</th>
+                        <th>Sanction Date</th>
+                        <th>Outstanding</th>
+                        <th>Interest Waiver</th>
+                        <th>FSPs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- Deposit Detail --%>
+    <div class="card shadow mb-4" hidden id="depositDetailDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Deposit Detail</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="depositDetailTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID</th>
+                        <th>Deposit Type</th>
+                        <th>Amount</th>
+                        <th>FSPs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- Working capital --%>
+    <div class="card shadow mb-4" hidden id="workingCapitalDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Working Capital</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="workingCapitalTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Account No</th>
+                        <th>Sector Type</th>
+                        <th>Sanction Date</th>
+                        <th>Sanction Amount</th>
+                        <th>Outstanding</th>
+                        <th>FSPs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- Druk Gyelpo Kidu Recipient(dgk) --%>
+    <div class="card shadow mb-4" hidden id="dgkDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Druk Gyelpo Kidu Recipient</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="dgkTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID/TPN/LicenseNo</th>
+                        <th>Occupation</th>
+                        <th>Sector</th>
+                        <th>Name of company</th>
+                        <th>Total Kidu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- Land information--%>
+    <div class="card shadow mb-4" hidden id="landInfoDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Land information</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="landInfoTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID/TPN/LicenseNo</th>
+                        <th>Name</th>
+                        <th>Urban-Rural</th>
+                        <th>Thram No</th>
+                        <th>Ownership</th>
+                        <th>Size(Deci)</th>
+                        <th>Location</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- Building/House--%>
+    <div class="card shadow mb-4" hidden id="buildingDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Building/House</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="buildingTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID/TPN/LicenseNo</th>
+                        <th>Name</th>
+                        <th>Urban-Rural</th>
+                        <th>House No</th>
+                        <th>Ownership</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- vehicle Information --%>
+    <div class="card shadow mb-4"  hidden id="vehicleInfoDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Vehicle Information</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="vehicleInfoTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID/TPN/LicenseNo</th>
+                        <th>Name</th>
+                        <th>Registration No</th>
+                        <th>Ownership</th>
+                        <th>Model</th>
+                        <th>Purchase Cost</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%-- other business--%>
+    <div class="card shadow mb-4" hidden id="businessDiv">
+        <div class="card-header py-1">
+            <h6 class="m-0 font-weight-bold text-primary">Other business</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered css-serial" id="businessTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>CID/TPN/LicenseNo</th>
+                        <th>Name</th>
+                        <th>License Type</th>
+                        <th>License Type</th>
+                        <th>Outstanding</th>
+                        <th>FSPs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.container-fluid -->
+<script src="<c:url value='/resources/js/financialInfo.js'/>"></script>
+</body>
+</html>
+
+
+
+
+
+
+

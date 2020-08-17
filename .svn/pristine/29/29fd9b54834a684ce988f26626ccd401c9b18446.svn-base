@@ -1,0 +1,134 @@
+/**
+ * Created by RMA on 3/25/2020.
+ */
+
+treasuryBill = (function () {
+    "use strict";
+
+    var formId = $('#treasuryBill');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "treasuryBill"
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function (e) {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: _baseURL() + '/save',
+                        type: 'POST',
+                        data: $(form).serializeArray(),
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function getTreasuryBill() {
+        $.ajax({
+            url: _baseURL() + '/getTreasuryBill',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr>' +
+                    '<td>' + parseInt(parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].participantName + '</td>' +
+                    '<td class="align-right">' + res[i].rate + '</td>' +
+                    '<td class="align-right">' + res[i].days + '</td>' +
+                    '<td class="align-right">' + res[i].allotted_amt + '</td>' +
+                    '<td class="align-right">' + res[i].outstanding_amt + '</td>';
+
+                    $('#treasurySerial').text(" (" + res[i].treasury_no + ")");
+                }
+
+                var tableId = $('#treasuryDetail');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                //createDataTableWithButtons(tableId);
+            }
+        })
+    }
+
+    /**
+     * To add row.
+     * @constructor
+     */
+    function addRow() {
+        $(document).on('click', '#addBtn', function (e) {
+            e.preventDefault();
+            var tableID = $('#treasuryBillTable');
+            var tr = $(this).closest('tr').clone();
+            tr.find('input:text').val('');
+            tr.find('select').val('');
+            tableID.find('tbody').append('<tr>' + tr.html() + '</tr>');
+            nesGlobal.formIndexing(tableID.find('tbody'));
+        });
+    }
+
+    /**
+     * To remove row.
+     */
+    function removeRow() {
+        $(document).on('click', '#removeBtn', function (e) {
+            var tableId = $('#treasuryBillTable');
+            alert(tableId);
+            e.preventDefault();
+            var tr = $(this).closest('tr');
+            if ($('.btnDR .remove').length > 1) {
+                tr.remove();
+                nesGlobal.formIndexingM(tableId.find('tbody'));
+            }
+            //toAddAmount(tableId, $('#receivedSum'));
+        });
+    }
+
+
+    function isTreasuryNoExist() {
+        $('#treasuryNo').on('blur', function () {
+            var treasuryNo = $(this).val();
+
+            if (treasuryNo === '' || treasuryNo === null) {
+                return;
+            }
+
+            $.ajax({
+                url: _baseURL() + '/isTreasuryNoExist',
+                type: 'GET',
+                data: {
+                    treasuryNo: treasuryNo
+                },
+                success: function (res) {
+                    if (res) {
+                        warningMsg("Treasury No#" + treasuryNo + " already exists.");
+                        $('#treasuryNo').val('');
+                    }
+                }
+            })
+        });
+    }
+
+    return {
+        save: save,
+        getTreasuryBill: getTreasuryBill,
+        addRow: addRow,
+        removeRow: removeRow,
+        isTreasuryNoExist: isTreasuryNoExist
+    };
+})();
+
+$(document).ready(function () {
+    treasuryBill.save();
+    treasuryBill.getTreasuryBill();
+    treasuryBill.addRow();
+    treasuryBill.removeRow();
+    treasuryBill.isTreasuryNoExist();
+});

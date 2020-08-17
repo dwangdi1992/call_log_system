@@ -1,0 +1,1444 @@
+/**
+ * Created by RMA on 4/22/2020.
+ */
+
+/**
+ * Created by RMA on 3/23/2020.
+ */
+
+dashboard2 = (function () {
+    "use strict";
+
+    var fontSize = 16;
+
+    function _baseURL() {
+        return nesGlobal.baseURL + '/dashboard';
+    }
+
+    /*function getLastFiveDaysReservePosition() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveDaysReservePosition',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints_USD = [];
+     var dataPoints_INR = [];
+     var dataPoints_total_USD = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints_USD.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     dataPoints_INR.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+     dataPoints_total_USD.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj3)});
+     }
+     }
+
+     var chart = new CanvasJS.Chart("monthly_reserve_chart_container", {
+     animationEnabled: true,
+     title: {
+     text: "Monthly Reserve Position (millions)",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount (millions)",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [
+     {
+     name: "USD",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_USD
+     },
+     {
+     name: "INR",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_INR
+     },
+     {
+     name: "Total (USD)",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_total_USD
+     }
+     ]
+     });
+     chart.render();
+     }
+     });
+     }
+
+     function getLastFiveDaysCurrencyFlow() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveDaysCurrencyFlow',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints_cc = [];
+     var dataPoints_inr = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints_cc.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     dataPoints_inr.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+     }
+     }
+     var chart = new CanvasJS.Chart("monthly_currency_flow_chart", {
+     animationEnabled: true,
+     title: {
+     text: "Foreign Currency Flow (millions)",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount (millions)",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [
+     {
+     name: "USD",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_cc
+     },
+     {
+     name: "INR",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_inr
+     }
+     ]
+     });
+     chart.render();
+     }
+     });
+     }
+
+     function getLastFiveDaysCurrencyTrade() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveDaysCurrencyTrade',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints_cc = [];
+     var dataPoints_inr = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints_cc.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     dataPoints_inr.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+     }
+     }
+     var chart = new CanvasJS.Chart("monthly_currency_trade_chart", {
+     animationEnabled: true,
+     title: {
+     text: "Foreign Currency (Purchase/Sale) with Domestic Banks (millions)",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount (millions)",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [
+     {
+     name: "USD",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_cc
+     },
+     {
+     name: "INR",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints_inr
+     }
+     ]
+     });
+     chart.render();
+     }
+     });
+     }
+
+     function getLastFiveNuCirculation() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveNuCirculation',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     }
+     }
+     var chart = new CanvasJS.Chart("nu_circulation_chart", {
+     animationEnabled: true,
+     title: {
+     text: "Ngultrum In Circulation",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [{
+     name: "Nu.",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints
+     }]
+     });
+     chart.render();
+     }
+     });
+     }
+
+     function getLiquidityPosition() {
+     $.ajax({
+     url: _baseURL() + '/getLiquidityPosition',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints_cur = [];
+     var dataPoints_swp = [];
+     var dataPoints_crr = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints_cur.push({y: parseFloat(res[i].currentAcc), label: res[i].bankCode});
+     dataPoints_swp.push({y: parseFloat(res[i].sweepingAcc), label: res[i].bankCode});
+     dataPoints_crr.push({y: parseFloat(res[i].cashReserveRatio), label: res[i].bankCode});
+     }
+     }
+
+     var chart = new CanvasJS.Chart("liquidity_position_chart", {
+     animationEnabled: true,
+     title: {
+     text: "Liquidity Position of Banks",
+     fontSize: fontSize
+     },
+     axisY: {
+     title: "Amount (millions)"
+     },
+     legend: {
+     cursor: "pointer"
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [
+     {
+     type: "bar",
+     showInLegend: true,
+     name: "Current A/C",
+     color: "gold",
+     dataPoints: dataPoints_cur
+     },
+     {
+     type: "bar",
+     showInLegend: true,
+     name: "Sweeping A/C",
+     color: "silver",
+     dataPoints: dataPoints_swp
+     },
+     {
+     type: "bar",
+     showInLegend: true,
+     name: "Cash Reserve Ratio",
+     color: "#A57164",
+     dataPoints: dataPoints_crr
+     }
+     ]
+     });
+     chart.render();
+     $('.canvasjs-chart-credit').text("");
+     }
+     });
+     }
+
+     function getBankWiseLatestDeposit() {
+     $.ajax({
+     url: _baseURL() + '/getBankWiseLatestDeposit',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints = [];
+     var currentDate;
+     if (res != null) {
+     for (var i in res) {
+     dataPoints.push({y: res[i].obj4, label: "Savings"});
+     dataPoints.push({y: res[i].obj2, label: "Current"});
+     dataPoints.push({y: res[i].obj8, label: "Recurring"});
+     dataPoints.push({y: res[i].obj6, label: "Fixed"});
+     currentDate = res[i].obj0;
+     }
+     }
+     var chart = new CanvasJS.Chart("deposit_as_on_chart", {
+     animationEnabled: true,
+     title: {
+     text: "Current Total Deposits of the Banks",// (" + currentDate + ")",
+     fontSize: fontSize
+     },
+     data: [{
+     type: "pie",
+     startAngle: 240,
+     yValueFormatString: "##0.00\"%\"",
+     indexLabel: "{label} {y}",
+     dataPoints: dataPoints
+     }]
+     });
+     chart.render();
+     $('.canvasjs-chart-credit').text("");
+     }
+     });
+     }
+
+     function getLastFiveDaysNuStock() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveDaysNuStock',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     }
+     }
+     var chart = new CanvasJS.Chart("currency_stock_nu", {
+     animationEnabled: true,
+     title: {
+     text: "Ngultrum Stock of RMA",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [{
+     name: "Nu",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints
+     }]
+     });
+     chart.render();
+     $('.canvasjs-chart-credit').text("");
+     }
+     });
+     }
+
+     function getLastFiveDaysINRStock() {
+     $.ajax({
+     url: _baseURL() + '/getLastFiveDaysINRStock',
+     type: 'GET',
+     success: function (res) {
+     var dataPoints = [];
+     if (res != null) {
+     for (var i in res) {
+     dataPoints.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+     }
+     }
+     var chart = new CanvasJS.Chart("currency_stock_inr", {
+     animationEnabled: true,
+     title: {
+     text: "INR Stock of RMA",
+     fontSize: fontSize
+     },
+     axisX: {
+     valueFormatString: "DD MMM,YY"
+     },
+     axisY: {
+     title: "Amount",
+     includeZero: false
+     },
+     legend: {
+     cursor: "pointer",
+     fontSize: 12
+     },
+     toolTip: {
+     shared: true
+     },
+     data: [{
+     name: "INR",
+     type: "spline",
+     yValueFormatString: "#0.##",
+     showInLegend: true,
+     dataPoints: dataPoints
+     }]
+     });
+     chart.render();
+     $('.canvasjs-chart-credit').text("");
+     }
+     })
+
+     }*/
+
+    function init() {
+        /*getLastFiveDaysReservePosition();
+         getLastFiveDaysCurrencyFlow();
+         getLastFiveDaysCurrencyTrade();
+         getLastFiveNuCirculation();
+         getLiquidityPosition();
+         getBankWiseLatestDeposit();
+         getLastFiveDaysNuStock();
+         getLastFiveDaysINRStock();*/
+        getAsOnWorkingCapital();
+        getAsOnLiquidityPosition();
+        getAsOnReservePosition();
+        getAsOnCurrencyStock();
+        getAsOnNationalResFund();
+
+        //TODO need to do by nima
+
+        getLoanSanctionByFI();
+        getLoanSanctionByCSI();
+        getLoansAndNPL();
+        getSectorLoansAndNPL();
+        //getLoansAndDeposit();
+        getNoOfDepositors();
+
+
+        getCapitalAdequacyRatio();
+        getFinInstCapitalFund();
+        getCurrentAccTrend();
+        getCashReserveRatioTrend();
+        getReservePosition();
+        getMonthsOfImportCoverage();
+        getINRReserveTrend();
+        getNuStockCIC();
+        getINRCashStock();
+        getInrCCNetFlows();
+    }
+
+    //TODO
+    function getAsOnWorkingCapital() {
+        $.ajax({
+            url: _baseURL() + '/getAsOnWorkingCapital',
+            type: 'GET',
+            success: function (res) {
+                $('#sanctionedAmt').text(commaSeparator(res.obj0));
+                $('#disbursedAmt').text(commaSeparator(res.obj1));
+                $('#noOfAcc').text(commaSeparator(res.obj2));
+            }
+        });
+    }
+
+
+    function getAsOnLiquidityPosition() {
+        $.ajax({
+            url: _baseURL() + '/getAsOnLiquidityPosition',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    $('#currentAcc').text(commaSeparator(res.obj0));
+                    $('#crrAcc').text(commaSeparator(res.obj1));
+                }
+            }
+        });
+    }
+
+    function getAsOnReservePosition() {
+        $.ajax({
+            url: _baseURL() + '/getAsOnReservePosition',
+            type: 'GET',
+            success: function (res) {
+                $('#cc-reserve').text(commaSeparator(res.obj0));
+                $('#inr-reserve').text(commaSeparator(res.obj1));
+                $('#total-reserve').text(commaSeparator(res.obj2));
+                $('#coverage').text(commaSeparator(res.obj3));
+            }
+        });
+    }
+
+    function getAsOnCurrencyStock() {
+        $.ajax({
+            url: _baseURL() + '/getAsOnCurrencyStock',
+            type: 'GET',
+            success: function (res) {
+                $('#inr-stock').text(commaSeparator(res.obj0));
+                $('#btn-stock').text(commaSeparator(res.obj1));
+                $('#cic').text(commaSeparator(res.obj2));
+            }
+        });
+    }
+
+    function getAsOnNationalResFund() {
+        $.ajax({
+            url: _baseURL() + '/getAsOnNationalResFund',
+            type: 'GET',
+            success: function (res) {
+                $('#nu-amount').text(commaSeparator(res.obj2));
+            }
+        });
+    }
+
+    function getLoanSanctionByFI() {
+        $('#reportType1').on('change', function () {
+            var reportType = $('#reportType1').val();
+            $.ajax({
+                url: _baseURL() + '/getLoanSanctionByFI',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints_trade = [];
+                    var dataPoints_tourism = [];
+                    var dataPoints_Industries = [];
+                    var dataPoints_total = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints_trade.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                            dataPoints_tourism.push({label: res[i].obj0, y: parseFloat(res[i].obj2)});
+                            dataPoints_Industries.push({label: res[i].obj0, y: parseFloat(res[i].obj3)});
+                            dataPoints_total.push({label: res[i].obj0, y: parseFloat(res[i].obj4)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("loan_sanction_FI_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Loans sanctioned by all FIs",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Trade(Wholesalers)",
+                            color:'#4284f5',
+                            dataPoints: dataPoints_trade
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Tourism",
+                                color:"orange",
+                                dataPoints: dataPoints_tourism
+                            },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Industries",
+                                color:'gray',
+                                dataPoints: dataPoints_Industries
+                            },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                color:'yellow',
+                                name: "Total",
+                                dataPoints: dataPoints_total
+                            }
+                        ]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getLoanSanctionByCSI() {
+        $('#reportType2').on('change', function () {
+            var reportType = $('#reportType2').val();
+            $.ajax({
+                url: _baseURL() + '/getLoanSanctionByCSI',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints_mic = [];
+                    var dataPoints_wc = [];
+                    var dataPoints_total = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints_mic.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                            dataPoints_wc.push({label: res[i].obj0, y: parseFloat(res[i].obj2)});
+                            dataPoints_total.push({label: res[i].obj0, y: parseFloat(res[i].obj3)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("loan_sanction_CSI_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Loans sanctioned by National  CSI Development Bank",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Microloan",
+                            color:'#4284f5',
+                            dataPoints: dataPoints_mic
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "WC to CSIs",
+                                color:'orange',
+                                dataPoints: dataPoints_wc
+                            },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Total",
+                                color:'gray',
+                                dataPoints: dataPoints_total
+                            }
+                        ]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getLoansAndNPL() {
+        $('#reportType3').on('change', function () {
+            $.ajax({
+                url: _baseURL() + '/getLoansAndNPL',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    var dataPoints1 = [];
+                    var dataPoints2 = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints1.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj2)});
+                            dataPoints2.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj4)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("loan_and_NPL_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Loans and NPLs",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Total Loans",
+                            dataPoints: dataPoints1
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Total NPLs",
+                                dataPoints: dataPoints2
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getSectorLoansAndNPL() {
+        $('#reportType4').on('change', function () {
+            $.ajax({
+                url: _baseURL() + '/getSectorLoansAndNPL',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    var dataPoints1 = [];
+                    var dataPoints2 = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            if(res[i].obj4 == 'OVERALL')
+                                dataPoints1.push({label: res[i].obj1, y: parseFloat(res[i].obj3)});
+
+                            if(res[i].obj4 == 'NPL')
+                                dataPoints2.push({label: res[i].obj1, y: parseFloat(res[i].obj3)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("sector_loans_and_NPL_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Sectoral loans & NPLs",
+                            fontSize: fontSize
+                        },
+                        subtitles: [{
+                            text: "Reporting Date: "+res[i].obj0
+                        }],
+                        axisX: {
+                            labelFontSize: 10,
+                            gridThickness: 0,
+                            interval: 1
+                            //labelAngle: -70
+                        },
+                        axisY: {
+                            labelFontSize: 10,
+                            titleFontSize: 10,
+                            title: "Amount in million"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        toolTip: {
+                            shared: true
+                        },
+                        data: [{
+                            type: "bar",
+                            showInLegend: true,
+                            name: "Total Loans",
+                            color: "#FF4500",
+                            dataPoints: dataPoints1
+                        },
+                            {
+                                type: "bar",
+                                showInLegend: true,
+                                name: "Total NPL",
+                                color: "#B0E0E6",
+                                dataPoints: dataPoints2
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getLoansAndDeposit() {
+        $('#reportType5').on('change', function () {
+            $.ajax({
+                url: _baseURL() + '/getLoansAndDeposit',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({x: new Date(res[i].obj0), y: parseFloat(res[i].obj1)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("loan_and_deposit_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Loans and Deposits",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Total Deposits",
+                            dataPoints: [
+                                {label: "Ep. 1", y: 2.22},
+                                {label: "Ep. 2", y: 2.20},
+                                {label: "Ep. 3", y: 2.44},
+                                {label: "Ep. 4", y: 2.45},
+                                {label: "Ep. 5", y: 2.58},
+                                {label: "Ep. 6", y: 2.44},
+                                {label: "Ep. 7", y: 2.40},
+                                {label: "Ep. 8", y: 2.72},
+                                {label: "Ep. 9", y: 2.66},
+                                {label: "Ep. 10", y: 3.04}
+                            ]
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Total Loans",
+                                dataPoints: [
+                                    {label: "Ep. 1", y: 3.86},
+                                    {label: "Ep. 2", y: 3.76},
+                                    {label: "Ep. 3", y: 3.77},
+                                    {label: "Ep. 4", y: 3.65},
+                                    {label: "Ep. 5", y: 3.90},
+                                    {label: "Ep. 6", y: 3.88},
+                                    {label: "Ep. 7", y: 3.69},
+                                    {label: "Ep. 8", y: 3.86},
+                                    {label: "Ep. 9", y: 3.38},
+                                    {label: "Ep. 10", y: 4.20}
+                                ]
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getNoOfDepositors() {
+        $('#reportType6').on('change', function () {
+            $.ajax({
+                url: _baseURL() + '/getNoOfDepositors',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    var dataPoints = [];
+                    var currentDate;
+                    if (res != null) {
+                        currentDate = res[0].obj0;
+                        for (var i in res) {
+                            dataPoints.push({y: res[i].obj3, label: res[i].obj1});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("number_of_depositor_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "No. of Depositors",
+                            fontSize: fontSize
+                        },
+                        subtitles: [{
+                            text: "Reporting Date: " + currentDate
+                        }],
+                        legend: {
+                            cursor: "pointer"
+                            //itemclick: explodePie
+                        },
+                        data: [{
+                            type: "pie",
+                            startAngle: 45,
+                            showInLegend: "true",
+                            legendText: "{label}",
+                            indexLabel: "{label} :{y}",
+                            yValueFormatString: "#,##0.# Million",
+                            toolTipContent: "{y} - #percent %",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getCapitalAdequacyRatio() {
+        $('#reportType7').on('change', function () {
+            var reportType = $('#reportType7').val();
+            $.ajax({
+                url: _baseURL() + '/getCapitalAdequacyRatio',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    var dataPoints_rate = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                            dataPoints_rate.push({label: res[i].obj0, y: parseFloat(res[i].obj2)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("capital_adequacy_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Capital Adequacy Ratio",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            lineDashType: "dash",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Minimum Regulatory Limit",
+                            color: 'red',
+                            dataPoints: dataPoints_rate
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                color: 'green',
+                                name: "Capital Adequacy Ratio",
+                                dataPoints: dataPoints
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getFinInstCapitalFund() {
+        $('#reportType8').on('change', function () {
+            var reportType = $('#reportType8').val();
+            $.ajax({
+                url: _baseURL() + '/getFinInstCapitalFund',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("FI_capital_fund_chart",
+                        {
+                            exportEnabled: true,
+                            title: {
+                                text: "Financial Institution's Capital Fund",
+                                fontSize: fontSize
+                            },
+                            axisX: {
+                                title: "Capital Fund(Million)"
+                            },
+                            axisY: {
+                                title: "Nu. in million"
+                            },
+                            data: [{
+                                type: "column",
+
+                                color: "#0877d4",
+                                dataPoints: dataPoints
+                            }]
+                        });
+                    chart.render();
+                }
+            });
+        })
+    }
+
+    function getCurrentAccTrend() {
+        $('#reportType9').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getCurrentAccTrend',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("current_bal_trend_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Current Account Trend",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Current Account Balance(in million)"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            yValueFormatString: "##.00",
+                            name: "Total Loans",
+                            color: "#0384fc",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getCashReserveRatioTrend() {
+        $('#reportType10').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getCashReserveRatioTrend',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("cash_reserve_ratio_trend_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Cash Reserve Ratio Trend",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Current Account Balance(in million)"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            yValueFormatString: "##.00",
+                            name: "Total Loans",
+                            color: "#0384fc",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getReservePosition() {
+        $('#reportType11').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getReservePosition',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints_cc = [];
+                    var dataPoints_inr = [];//INR in equivalent USD amount.
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints_cc.push({y: parseFloat(res[i].obj1), label: res[i].obj0});
+                            dataPoints_inr.push({y: parseFloat(res[i].obj2), label: res[i].obj0});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("reserve_position_chart", {
+                        exportEnabled: true,
+                        animationEnabled: true,
+                        title: {
+                            text: "Reserve Position",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            title: "Amount in million",
+                            tickColor: "#B6B1A8"
+                        },
+                        toolTip: {
+                            shared: true
+                        },
+                        data: [{
+                            type: "stackedColumn",
+                            showInLegend: true,
+                            color: "#0877d4",
+                            name: "CC(in USD)",
+                            dataPoints: dataPoints_cc
+                        },
+                            {
+                                type: "stackedColumn",
+                                showInLegend: true,
+                                name: "INR reserve in USD",
+                                color: "#d45d08",
+                                dataPoints: dataPoints_inr
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getMonthsOfImportCoverage() {
+        $('#reportType12').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getMonthsOfImportCoverage',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("month_of_import_coverage_chart", {
+                        theme: "light2",
+                        animationEnabled: true,
+                        exportEnabled: true,
+                        title: {
+                            text: "Months of Import Coverage Essentials",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            includeZero: false,
+                            title: "Current Account Balance(in million)"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            yValueFormatString: "##.00",
+                            color: "#FFA500",
+                            name: "Total Loans",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            })
+        });
+    }
+
+    function getINRReserveTrend() {
+        $('#reportType13').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getINRReserveTrend',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("INR_trend_chart", {
+                        animationEnabled: true,
+                        exportEnabled: true,
+                        title: {
+                            text: "INR Reserve Trend",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            yValueFormatString: "##.00",
+                            name: "Total Loans",
+                            color: "#0384fc",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            })
+        });
+    }
+
+    function getInrCCNetFlows() {
+        $('#reportType14').on('change', function () {
+            var reportType = $(this).val();
+
+            $.ajax({
+                url: _baseURL() + '/getINRAndCCNetTrend',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints_inr = [];
+                    var dataPoints_cc = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints_inr.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                            dataPoints_cc.push({label: res[i].obj0, y: parseFloat(res[i].obj2)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("INR_And_CC_chart", {
+                        exportEnabled: true,
+                        title: {
+                            text: "INR and CC Net flows",
+                            fontSize: fontSize
+                        },
+                        axisY: [{
+                            title: "CC in million",
+                            lineColor: "#C24642",
+                            tickColor: "#C24642"
+                        }],
+                        axisY2: {
+                            title: "INR in million",
+                            lineColor: "#7F6084",
+                            tickColor: "#7F6084",
+                            labelFontColor: "#7F6084",
+                            titleFontColor: "#7F6084"
+                        },
+                        toolTip: {
+                            shared: true
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            name: "Outflow(INR in million)(LHS)",
+                            color: "#0384fc",
+                            showInLegend: true,
+                            axisYIndex: 1,
+                            dataPoints: dataPoints_inr
+                        },
+                            {
+                                type: "line",
+                                name: "Net flow(in million)(RHS)",
+                                color: "#FFA500",
+                                axisYType: "secondary",
+                                showInLegend: true,
+                                dataPoints: dataPoints_cc
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    //region Currency Stock And Circulation.
+    function getNuStockCIC() {
+        $('#reportType15').on('change', function () {
+            var reportType = $(this).val();
+            $.ajax({
+                url: _baseURL() + '/getNuStockCIC',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints_cic = [];
+                    var dataPoints_stk = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints_cic.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                            dataPoints_stk.push({label: res[i].obj0, y: parseFloat(res[i].obj2)});
+                        }
+                    }
+
+                    var chart = new CanvasJS.Chart("Nu_stock_and_circulation_chart", {
+                        animationEnabled: true,
+                        exportEnabled: true,
+                        title: {
+                            text: "Nu. Stock and Circulation",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            gridThickness: 0,
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            showInLegend: true,
+                            yValueFormatString: "##.00",
+                            name: "Nu. Stock (in million)",
+                            color: "#0384fc",
+                            dataPoints: dataPoints_stk
+                        },
+                            {
+                                type: "line",
+                                showInLegend: true,
+                                yValueFormatString: "##.00",
+                                name: "Currency in Circulation(in million)",
+                                color: "#FFA500",
+                                dataPoints: dataPoints_cic
+                            }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    function getINRCashStock() {
+        $('#reportType16').on('change', function () {
+            var reportType = $(this).val();
+
+            $.ajax({
+                url: _baseURL() + '/getINRCashStock',
+                type: 'GET',
+                data: {reportType: reportType},
+                success: function (res) {
+                    var dataPoints = [];
+                    if (res != null) {
+                        for (var i in res) {
+                            dataPoints.push({label: res[i].obj0, y: parseFloat(res[i].obj1)});
+                        }
+                    }
+                    var chart = new CanvasJS.Chart("INR_stock_chart", {
+                        theme: "light2",
+                        animationEnabled: true,
+                        exportEnabled: true,
+                        title: {
+                            text: "INR Cash Stock",
+                            fontSize: fontSize
+                        },
+                        axisY: {
+                            includeZero: false,
+                            title: "Nu. in million"
+
+                        },
+                        toolTip: {
+                            shared: "true"
+                        },
+                        legend: {
+                            cursor: "pointer"
+                        },
+                        data: [{
+                            type: "line",
+                            yValueFormatString: "##.00",
+                            name: "Nu. Stock (in million)",
+                            color: "#0384fc",
+                            dataPoints: dataPoints
+                        }]
+                    });
+                    chart.render();
+                }
+            });
+        });
+    }
+
+    //endregion
+
+    return {
+        init: init
+    };
+})
+();
+
+$(document).ready(function () {
+    dashboard2.init();
+    for (var i = 1; i <= 16; i++) {
+        $('#reportType' + i).trigger('change');
+    }
+});

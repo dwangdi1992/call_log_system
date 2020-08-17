@@ -1,0 +1,57 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/25/2020
+  Time: 11:00 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Reserve Position (In Million)</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800 align-center">Department of Foreign Exchange</h1>
+    <!-- DataTales - Reserve Position -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Reserve Position (In Million)</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered  enableDataTable" id="reservePosition" width="100%"
+                       cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Convertible Currency Reserve</th>
+                        <th>Indian Rupee Reserve</th>
+                        <th>Total Reserve</th>
+                        <th>Essential Imports data</th>
+                        <th>Months of Import Coverage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${reservePositionList}" var="item" varStatus="counter">
+                        <tr>
+                            <td class="align-center">${counter.count}</td>
+                            <td class="align-center">${item.date}</td>
+                            <td class="align-right">${item.cc_reserve} </td>
+                            <td class="align-right">${item.inr_reserve}</td>
+                            <td class="align-right">${item.total_reserve} </td>
+                            <td class="align-right">${item.essential_import}</td>
+                            <td class="align-right">${item.import_coverage}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

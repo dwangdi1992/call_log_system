@@ -1,0 +1,47 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/24/2020
+  Time: 12:37 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>INR Report</title>
+</head>
+<body>
+<div class="container-fluid">
+    <input type="hidden" id="report" value="${REPORT}"/>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">INR Stock</h1>
+    <!-- DataTales stockINR -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Stock of INR cash in Bhutan (RMA + Currency Chests)</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="stockINRTblId" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>RMA Thimphu</th>
+                        <th>RMA Phuntsholing</th>
+                        <th>RMA Mongar</th>
+                        <th>RMA Ex. Counter Thimphu</th>
+                        <th>Currency Chests</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

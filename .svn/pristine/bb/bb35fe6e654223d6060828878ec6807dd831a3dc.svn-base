@@ -1,0 +1,52 @@
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dcmCICReport = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dcmCICReport/"
+    }
+
+    function getDCMCICReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMCICReport',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr>' +
+                    '<td class="align-center">' + parseInt(parseInt(i) + 1) + '</td>' +
+                    '<td class="align-center">' + res[i].obj0 + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].obj1) + '</td>';
+                }
+                var tableId = $('#getCICDetailTable');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+
+                /* var bar = new Morris.Line({
+                 element: 'dcm_currency_in_circulation_chart',
+                 resize: true,
+                 data: res,
+                 xkey: 'obj0',
+                 ykeys: ['obj1'],
+                 labels: ['Currency in Circulation'],
+                 lineColors: ['#3dde33'],
+                 hideHover: 'auto'
+                 });*/
+            }
+        });
+    }
+
+    return {
+        getDCMCICReport: getDCMCICReport
+        //save: save
+    };
+})();
+
+$(document).ready(function () {
+    dcmCICReport.getDCMCICReport();
+    //dcmCICReport.save();
+});

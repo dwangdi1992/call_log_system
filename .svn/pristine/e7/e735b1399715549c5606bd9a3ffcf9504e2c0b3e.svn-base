@@ -1,0 +1,451 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<!-- Begin Page Content -->
+<div class="container">
+    <div class="card-group">
+        <security:authorize access="hasRole('00-01-007-VIEW')">
+            <div class="card">
+                <div class="card-body" id="wc-card-bg">
+                    <h6 class="cus_card_title">WORKING CAPITAL as on Date (in million)</h6>
+
+                    <p class="cus-card-text">Amount Sanctioned:</p>
+
+                    <p class="cus-card-text">Amount Disbursed:</p>
+
+                    <p class="cus-card-text">No. of Account:</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><a href="<c:url value="/"/>">>View More</a></small>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-008-VIEW')">
+            <div class="card">
+                <div class="card-body" id="lp-card-bg">
+                    <h6 class="cus_card_title">LIQUIDITY POSITION as on Date (in million)</h6>
+
+                    <p class="cus-card-text">Current Acc: <span id="currentAcc"></span></p>
+
+                    <p class="cus-card-text">CRR Acc(7%): <span id="crrAcc"></span></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><a href="<c:url value="/"/>">>View More</a></small>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-009-VIEW')">
+            <div class="card">
+                <div class="card-body" id="rp-card-bg">
+                    <h6 class="cus_card_title">RESERVE POSITION as on Date (in million)</h6>
+
+                    <p class="cus-card-text">CC: $ <span id="cc-reserve"></span></p>
+
+                    <p class="cus-card-text">INR: Rs. <span id="inr-reserve"></span></p>
+
+                    <p class="cus-card-text">Total: $ <span id="total-reserve"></span></p>
+
+                    <p class="cus-card-text">Months of coverage: <span id="coverage"></span></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><a href="<c:url value="/"/>">>View More</a></small>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-010-VIEW')">
+            <div class="card">
+                <div class="card-body" id="cs-card-bg">
+                    <h6 class="cus_card_title">CURRENCY STOCK as on date (in million)</h6>
+
+                    <p class="cus-card-text">INR stock: Rs.<span id="inr-stock"></span></p>
+
+                    <p class="cus-card-text">BTN stock: Nu.<span id="btn-stock"></span></p>
+
+                    <p class="cus-card-text">CIC: Nu.<span id="cic"></span></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">
+                        <a href="<c:url value="/"/>">>INR stock</a>&nbsp;&nbsp;
+                        <a href="<c:url value="/"/>">>BTN stock</a>&nbsp;&nbsp;
+                        <a href="<c:url value="/"/>">>CIC</a>
+                    </small>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-011-VIEW')">
+            <div class="card">
+                <div class="card-body" id="rf-card-bg">
+                    <h6 class="cus_card_title">NATIONAL RESILIENCE FUND as on Date (in million)</h6>
+
+                    <p class="cus-card-text">Amount Nu. <span id="nu-amount"></span></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><a href="<c:url value="/"/>">>View More</a></small>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+</div>
+<br>
+
+<div class="container-fluid">
+    <security:authorize access="hasRole('00-01-002-VIEW')">
+        <div class="col-sm-12 title-bg">A. Monetary Measures</div>
+    </security:authorize>
+
+    <%--Monetary Measures--%>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-012-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType1">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="loan_sanction_FI_chart" style="height: 300px; width: 100%;">
+                        </div>
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Term Based soft working
+                            capital-Banks</a><br>
+                        <a href="<c:url value="/"/>">Term Based soft working
+                            capital-Non-Bank </a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+        <security:authorize access="hasRole('00-01-013-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType2">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="loan_sanction_CSI_chart" style="height: 300px; width: 100%;"></div>
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Loan sanctioned by NCSDB</a><br>
+                        <a href="<c:url value="/"/>"> </a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+
+    <security:authorize access="hasRole('00-01-002-VIEW')">
+        <div class="col-sm-12 title-bg">B. Loans And NPL's</div>
+    </security:authorize>
+    <%--Loans and PNL--%>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-014-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType3">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="loan_and_NPL_chart" style="height: 300px; width: 100%;"></div>
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Sectoral loans and
+                            advances-Banks</a><br>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+        <security:authorize access="hasRole('00-01-015-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType4">
+                            <option value="1">Previous</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="sector_loans_and_NPL_chart" style="height: 300px; width: 100%;"></div>
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Sectoral loans & NPLs</a><br>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+
+    <security:authorize access="hasRole('00-01-002-VIEW')">
+        <div class="col-sm-12 title-bg">C. Deposits</div>
+    </security:authorize>
+    <%--Deposit--%>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-017-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType5">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="loan_and_deposit_chart" style="height: 300px; width: 100%;"></div>
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Bank wise Deposits</a>
+                        <a href="<c:url value="/"/>">MFIs Deposits</a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-018-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType6">
+                            <option value="1">Previous</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="number_of_depositor_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+    <security:authorize access="hasRole('00-01-002-VIEW')">
+        <div class="col-sm-12 title-bg">D. Capital Position</div>
+    </security:authorize>
+    <%--Capital Position--%>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-019-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType7">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="capital_adequacy_chart" style="height: 300px; width: 100%;"></div>
+
+                        <strong>View more</strong><br>
+                        <a href="<c:url value="/"/>">Institution Wise Capital Positions</a>
+                        <a href="<c:url value="/"/>">Institution Wise Financial Positions</a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-020-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType8">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="FI_capital_fund_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+
+    <security:authorize access="hasRole('00-01-005-VIEW')">
+        <div class="col-sm-12 title-bg">E. Liquidity Position</div>
+    </security:authorize>
+
+    <div class="row">
+        <security:authorize access="hasRole('00-01-021-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType9">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="current_bal_trend_chart" style="height: 300px; width: 100%;"></div>
+
+                        <a href="<c:url value="/"/>">View More</a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+        <security:authorize access="hasRole('00-01-022-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType10">
+                            <option value="1">Monthly</option>
+                            <option value="2">Yearly</option>
+                        </select>
+
+                        <div id="cash_reserve_ratio_trend_chart" style="height: 300px; width: 100%;"></div>
+                        <a href="<c:url value="/"/>">View More</a>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+
+    <security:authorize access="hasRole('00-01-004-VIEW')">
+        <div class="col-sm-12 title-bg">F. Reserve Position</div>
+    </security:authorize>
+    <%--Reserve Position--%>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-023-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType11">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="reserve_position_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-024-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType12">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="month_of_import_coverage_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+
+    <div class="row">
+        <security:authorize access="hasRole('00-01-025-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType13">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="INR_trend_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+        <security:authorize access="hasRole('00-01-026-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType14">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="INR_And_CC_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+    <security:authorize access="hasRole('00-01-003-VIEW')">
+        <div class="col-sm-12 title-bg">G. Currency Stock And Circulation</div>
+    </security:authorize>
+    <div class="row">
+        <security:authorize access="hasRole('00-01-027-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType15">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="Nu_stock_and_circulation_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+
+        <security:authorize access="hasRole('00-01-028-VIEW')">
+            <div class="col-xl-6 col-lg-7">
+                <div class="card shadow mb-4">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <select name="reportType" id="reportType16">
+                            <option value="1">Daily</option>
+                            <option value="2">Weekly</option>
+                            <option value="3">Monthly</option>
+                            <option value="4">Yearly</option>
+                        </select>
+
+                        <div id="INR_stock_chart" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </security:authorize>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+
+
+
+
+
+

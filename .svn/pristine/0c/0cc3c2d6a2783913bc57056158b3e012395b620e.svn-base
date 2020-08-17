@@ -1,0 +1,75 @@
+/**
+ * Created by RMA on 3/27/2020.
+ */
+
+dpssInput = (function () {
+    "use strict";
+
+    var formId = $('#treasuryBill');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "treasuryBill/"
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function (e) {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: _baseURL() + 'save',
+                        type: 'POST',
+                        data: $(form).serializeArray(),
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+
+    function readExcelSheet() {
+        $('#uploadFile').on('change', function () {
+            var data = new FormData($(formId)[0]);
+            data.append('uploadFile', $('input[type=file]')[0].files[0]);
+            $.ajax({
+                url: _baseURL() + 'readExcelSheet',
+                type: 'POST',
+                data: data,
+                enctype: 'multipart/form-data',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td></td>' +
+                        '<td>' + res[i].date + '</td>' +
+                        '<td>' + res[i].bobAmount + '</td>' +
+                        '<td>' + res[i].bnbAmount + '</td>' +
+                        '<td>' + res[i].dpnbAmount + '</td>' +
+                        '<td>' + res[i].bdblAmount + '</td>' +
+                        '<td>' + res[i].tbankAmount + '</td>'
+                    }
+                    var tableId = $('#bankTableId');
+                    tableId.dataTable().fnDestroy();
+                    tableId.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableId);
+                }
+            })
+        });
+    }
+
+    return {
+        save: save
+    };
+})();
+
+$(document).ready(function () {
+    dpssInput.save();
+});

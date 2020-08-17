@@ -1,0 +1,56 @@
+package rma.org.bt.mms.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import rma.org.bt.mms.dao.KiduDao;
+import rma.org.bt.mms.global.base.BaseService;
+import rma.org.bt.mms.model.KiduInfoDTO;
+
+import java.util.List;
+
+
+@Service
+public class KiduService extends BaseService {
+
+    //region doa injection.
+    private KiduDao kiduDao;
+    //endregion
+
+    @Autowired
+    public KiduService(KiduDao kiduDao) {
+        this.kiduDao = kiduDao;
+    }
+
+
+    //region public methods.
+    /**
+     * To get kidu information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<KiduInfoDTO>
+     */
+    public List<KiduInfoDTO> getKiduInfo(String searchKey) {
+        return kiduDao.getKiduInfo(searchKey);
+    }
+
+    /**
+     * To get the list of kidu information if any.
+     *
+     * @return String
+     */
+    public List<KiduInfoDTO> getKiduInfoList() {
+        return kiduDao.getKiduInfoList();
+    }
+
+
+    /**
+     * To get kidu information list by company.
+     *
+     * @param company String
+     * @return List<KiduInfoDTO>
+     */
+    public List<KiduInfoDTO> getKiduInfoListByCompany(String company) {
+        return kiduDao.getKiduInfoListByCompany(company);
+    }
+    //endregion
+}

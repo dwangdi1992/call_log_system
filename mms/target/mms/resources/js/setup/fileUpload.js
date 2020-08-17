@@ -1,0 +1,85 @@
+/**
+ * Created by RMA on 3/23/2020.
+ */
+fileUpload = (function () {
+    "use strict";
+
+    var isSubmitted = false;
+
+    function _baseURL() {
+        return mmsGlobal.baseURL + "fileUpload";
+    }
+
+    function getUploadedFileList() {
+        $.ajax({
+            url: _baseURL() + '/getUploadedFileList',
+            type: 'GET',
+            success: function (res) {
+                if (res != null) {
+                    var row = '';
+                    for (var i in res) {
+                        var reportDate = (res[i].reportDate === null) ? "" : res[i].reportDate;
+                        row = row + '<tr>' +
+                        '<td>' + parseInt(parseInt(i) + parseInt(1)) + '</td>' +
+                        '<td id="fileId">' + res[i].file_id + '</td>' +
+                        '<td>' + reportDate + '</td>' +
+                        '<td>' + res[i].file_name + '</td>' +
+                        '<td class="align-center"><a href="'+ _baseURL() + '/viewFile?fileId='+res[i].file_id  +'"> <input type="button" class="btn btn-primary" id="btnView" value="View"></a>&nbsp;' +
+                        '<input type="button" class="btn btn-danger" id="btnDelete" value="Delete"></td>'
+                    }
+                    var tableID = $('#fileUploadTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    tableID.dataTable();
+                } else {
+                    warningMsg(res.text);
+                }
+            }
+        });
+    }
+
+    function deleteFileByUserID() {
+        $('#fileUploadTable').on('click', '#btnDelete', function () {
+            var selectedFileID = $(this).closest('tr').find('#fileId').text();
+            $.ajax({
+                url: _baseURL() + '/deleteFileByUserID',
+                type: 'POST',
+                data: {fileId: selectedFileID},
+                success: function (res) {
+                    if (res.status == 1) {
+                        successMsg(res.text, _baseURL());
+                    } else {
+                        warningMsg(res.text);
+                    }
+                }
+            });
+        })
+    }
+
+    function viewFile() {
+        $('#fileUploadTable').on('click', '#btnView', function () {
+            var selectedFileID = $(this).closest('tr').find('#fileId').text();
+            $.ajax({
+                url: _baseURL() + '/viewFile',
+                type: 'GET',
+                data: {fileId: selectedFileID},
+                success: function (res) {
+                    //window.open(res.fileUrl)
+                }
+            });
+        })
+    }
+
+    return {
+        getUploadedFileList: getUploadedFileList,
+        deleteFileByUserID: deleteFileByUserID,
+        viewFile: viewFile
+
+    };
+})();
+
+$(document).ready(function () {
+    fileUpload.getUploadedFileList();
+    fileUpload.deleteFileByUserID();
+    fileUpload.viewFile();
+});

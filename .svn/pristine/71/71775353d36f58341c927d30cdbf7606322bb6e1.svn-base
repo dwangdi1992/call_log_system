@@ -1,0 +1,243 @@
+package rma.org.bt.mms.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.wso2.client.api.ApiException;
+import rma.org.bt.mms.global.dto.ResponseMessage;
+import rma.org.bt.mms.model.*;
+import rma.org.bt.mms.services.APIConnectionService;
+import rma.org.bt.mms.services.FinancialInfoService;
+import rma.org.bt.mms.global.base.BaseController;
+import rma.org.bt.mms.global.dto.CurrentUser;
+import rma.org.bt.mms.global.library.DateUtil;
+import rma.org.bt.mms.login.login.LoginDTO;
+import rma.org.bt.mms.services.KiduService;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * Description: It handles and processes authentication success request, keeps history.
+ * Date: 10-Oct-2018
+ */
+@Controller
+@RequestMapping(value = "")
+@PreAuthorize("isAuthenticated()")
+public class HomeController extends BaseController {
+
+    //region interface
+    private FinancialInfoService financialInfoService;
+
+    private APIConnectionService apiService;
+
+    private KiduService kiduService;
+    //endregion
+
+    //region setter injection.
+    @Autowired
+    public void setFinancialInfoService(FinancialInfoService financialInfoService) {
+        this.financialInfoService = financialInfoService;
+    }
+
+    @Autowired
+    public void setApiService(APIConnectionService apiService) {
+        this.apiService = apiService;
+    }
+
+    @Autowired
+    public void setKiduService(KiduService kiduService) {
+        this.kiduService = kiduService;
+    }
+    //endregion
+
+    //region public methods.
+
+    /**
+     * home controller
+     *
+     * @param request  request
+     * @param response response
+     * @return ModelAndView
+     */
+    @RequestMapping(value = {"/", "home"}, method = RequestMethod.GET)
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, Model model)
+            throws IOException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        LoginDTO loginDTO = (LoginDTO) auth.getPrincipal();
+
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setBranchCode(loginDTO.getBranchCode());
+        currentUser.setBranchName(loginDTO.getBranchName());
+        currentUser.setUserName(loginDTO.getUserName());
+        currentUser.setFullName(loginDTO.getUserFullName());
+        currentUser.setGroupId(loginDTO.getGroupId());
+        currentUser.setBankId(loginDTO.getBankId());
+        currentUser.setDzongkhagId(loginDTO.getDzongkhagId());
+        currentUser.setServerDate(new Date());
+
+        request.getSession().setAttribute("currentUser", currentUser);
+
+        if (loginDTO.isPasswordChangeYN()) {
+            response.sendRedirect("changePassword");
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute("currentDate", DateUtil.formatDate(currentUser.getServerDate()));
+        modelAndView.setViewName("home");
+        return modelAndView;
+    }
+
+    /**
+     * will redirect to contact-us page.
+     *
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @return ModelAndView
+     * @throws IOException
+     */
+    @RequestMapping(value = "contact-us", method = RequestMethod.GET)
+    public ModelAndView contactUs(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("contact-us");
+        return modelAndView;
+    }
+
+
+    //region search functions.
+
+    /**
+     * To get list of loan information in any.
+     *
+     * @param searchKey - TPN/CID/LicenseNo
+     * @return List<LoanInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getPersonalInfo", method = RequestMethod.GET)
+    public ResponseMessage getPersonalInfo(String searchKey) {
+        return apiService.getPersonalInfo(searchKey);
+    }
+
+    /**
+     * To get list of loan information in any.
+     *
+     * @param searchKey - TPN/CID/LicenseNo
+     * @return List<LoanInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getLoanInfo", method = RequestMethod.GET)
+    public List<LoanInfoDTO> getLoanInfo(String searchKey) {
+        return financialInfoService.getLoanInfo(searchKey);
+    }
+
+    /**
+     * To get citizen information.
+     *
+     * @param searchKey String
+     * @return List<PersonalInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCitizenInfo", method = RequestMethod.GET)
+    public ResponseMessage getCitizenInfo(String searchKey) {
+        return apiService.getPersonalInfo(searchKey);
+    }
+
+    /**
+     * To get list of deposit information if any
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<DepositInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getDepositInfo", method = RequestMethod.GET)
+    public List<DepositInfoDTO> getDepositInfo(String searchKey) {
+        return financialInfoService.getDepositInfo(searchKey);
+    }
+
+    /**
+     * To get working capital information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<WorkingCapitalInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getWorkingCapitalInfo", method = RequestMethod.GET)
+    public List<WorkingCapitalInfoDTO> getWorkingCapitalInfo(String searchKey) {
+        return financialInfoService.getWorkingCapitalInfo(searchKey);
+    }
+
+    /**
+     * To get kidu information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<KiduInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getKiduInfo", method = RequestMethod.GET)
+    public List<KiduInfoDTO> getKiduInfo(String searchKey) {
+        return kiduService.getKiduInfo(searchKey);
+    }
+
+    /**
+     * To get land information if any.
+     *
+     * @param searchKey-TPN/CID/LicenseNo
+     * @return List<LandInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getLandInfo", method = RequestMethod.GET)
+    public ResponseMessage getLandInfo(String searchKey) throws ApiException {
+        return apiService.getLandInfo(searchKey);
+    }
+
+    //TODO No API for building and property
+    /**
+     * To get list of building or information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<BuildingInfoDTO>
+     *//*
+    @ResponseBody
+    @RequestMapping(value = "/getBuildingInfo", method = RequestMethod.GET)
+    public List<BuildingInfoDTO> getBuildingInfo(String searchKey) {
+        return financialInfoService.getBuildingInfo(searchKey);
+    }*/
+
+    /**
+     * To get list vehicle information if any.
+     *
+     * @param searchKey -TPN/CID/LicenseNo
+     * @return List<VehicleInfoDTO>
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getVehicleInfo", method = RequestMethod.GET)
+    public ResponseMessage getVehicleInfo(String searchKey) throws ApiException {
+        return apiService.getVehicleInfo(searchKey);
+    }
+
+    //TODO not needed as of now.
+   /* @ResponseBody
+    @RequestMapping(value = "/getBusinessInfo", method = RequestMethod.GET)
+    public List<BusinessInfoDTO> getBusinessInfo(String searchKey) {
+        return financialInfoService.getBusinessInfo(searchKey);
+    }*/
+    //endregion
+    //endregion
+}
+
+

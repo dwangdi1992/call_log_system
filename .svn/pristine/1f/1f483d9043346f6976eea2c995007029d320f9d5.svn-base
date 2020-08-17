@@ -1,0 +1,56 @@
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dcmCurrencyChestReport = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dcmCurrencyChestReport/"
+    }
+
+    function getDCMCurrencyChestReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMCurrencyChestReport',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td></td>' +
+                    '<td class="align-center">' + res[i].date + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc01) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc04) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc03) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc02) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc05) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc06) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc07) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc08) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc09) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc10) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc11) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc20) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc21) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc22) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc23) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].total) + '</td>';
+                }
+                var tableId = $('#getDCMCurrencyChestReportTable');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    return {
+        getDCMCurrencyChestReport: getDCMCurrencyChestReport
+        //save: save
+    };
+})();
+
+$(document).ready(function () {
+    dcmCurrencyChestReport.getDCMCurrencyChestReport();
+    //dcmCICReport.save();
+});

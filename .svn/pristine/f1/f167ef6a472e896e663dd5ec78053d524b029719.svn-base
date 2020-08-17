@@ -1,0 +1,44 @@
+DFRSReportDao.getConsolidateDetail = SELECT loan_detail_id, bank_id, sector_id, subsector_id FROM ccr_db.dfrs_loan_detail
+DFRSReportDao.getMarginalDetail = SELECT loan_detail_id, bank_id, sector_id, subsector_id FROM ccr_db.dfrs_loan_detail
+
+DFRSReportDao.getDepositDetail = call sp_dfrs_deposit_rpt (:fromDate, :toDate)
+DFRSReportDao.getSLR = call sp_dfrs_slr_rpt (:fromDate, :toDate)
+DFRSReportDao.getASPosition = call sp_dfrs_allied_sector_position_rpt (:weekNo)
+DFRSReportDao.getNPLPosition = call sp_dfrs_loan_vs_npl_rpt (:date)
+DFRSReportDao.getSTOverall = call sp_dfrs_fi_summary_tourism_overall_rpt (:reportDate)
+
+DFRS_InputDao.checkDuplicate = call sp_dfrs_check_duplicate (:iDataName,:reportDate,:bankId)
+DFRS_MLRDao.getMLR = CALL sp_dfrs_mlr_get(:effective_date)
+
+DFRSReportDao.getWCTotal = call sp_dfrs_wc_bank_wise_total ()
+DFRSReportDao.getWCDetail = call sp_dfrs_wc_detail (:report_date)
+
+DFRSReportDao.getLBMTrendByAmount = call sp_dfrs_lbm_trend_by_amount (:report_date)
+DFRSReportDao.getLBMTrendByACS = call sp_dfrs_lbm_trend_by_acs (:report_date)
+DFRSReportDao.getLBMByRatio = call sp_dfrs_lbm_by_ratio (:report_date)
+DFRSReportDao.getNPLTrend = call  sp_dfrs_npl_trend(:report_date)
+
+DFRS_InputDao.getBankWiseLatestDeposit = CALL sp_lastest_bank_wise_deposit_rpt();
+
+DFRSReportDao.getCapitalFundList = CALL sp_dfrs_get_capital_fund_list();
+DFRSReportDao.getCapitalAdequacyList = CALL sp_dfrs_capital_adequacy_list();
+
+DFRSReportDao.getAsOnWorkingCapital = CALL sp_dfrs_get_as_on_working_capital_rpt();
+
+DFRSReportDao.getLoanSanctionByFI = CALL sp_dfrs_working_capital_rpt();
+DFRSReportDao.getLoanSanctionByCSI = CALL sp_dfrs_loan_sanction_CSI_rpt()
+DFRSReportDao.getLoansAndNPL = CALL sp_dfrs_loan_vs_npl(:freq,:report_date,:prev)
+DFRSReportDao.getSectorLoansAndNPL = CALL sp_dfrs_loan_sector_wise(:reportDate,:prev)
+DFRSReportDao.getLoansAndDeposit =
+DFRSReportDao.getNoOfDepositors = CALL  sp_dfrs_depositor_rpt(:reportDate,:prev)
+DFRSReportDao.getCapitalAdequacyRatio = CALL sp_dfrs_get_capital_adequacy_ratio_rpt(:reportType)
+DFRSReportDao.getFinInstCapitalFund = CALL sp_dfrs_get_capital_fund_rpt(:reportType);
+
+
+ -- TO get one
+DFRSReportDao.getBankWiseWorkingCapital = CALL sp_dfrs_get_bank_wise_wc_rpt(:finInstType)
+DFRSReportDao.getNonBankWorkingCapital = CALL sp_dfrs_get_bank_wise_wc_rpt(:finInstType)
+
+DFRSReportDao.getConSectorWiseWC = CALL sp_get_consolidate_sector_wise_rpt();
+
+DFRSReportDao.getLoanSanctionedByCsi = CALL sp_get_loan_sanction_by_csi_rpt();

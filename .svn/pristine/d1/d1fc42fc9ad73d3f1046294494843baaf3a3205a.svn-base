@@ -1,0 +1,46 @@
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dcmStockSummary = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dcmStockSummary/"
+    }
+
+
+    function getDCMStockSummaryReport() {
+        $.ajax({
+            url: _baseURL() + 'getDCMStockSummaryReport',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + parseInt(parseInt(i) + parseInt(1)) + '</td>' +
+                    '<td class="align-center">' + res[i].date + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].rma) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].cc) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].ex_counter) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].ro_pling) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].ro_mongar) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].total) + '</td>';
+                }
+                var tableId = $('#getDcmStockSummaryReportTable');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    return {
+        getDCMStockSummaryReport: getDCMStockSummaryReport
+    };
+})();
+
+$(document).ready(function () {
+    //dcmStockSummary.getCICDetail();
+    dcmStockSummary.getDCMStockSummaryReport();
+});

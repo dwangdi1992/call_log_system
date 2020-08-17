@@ -1,0 +1,11 @@
+#getUserRolePrivilege.endPointURL=http://localhost:8081/G2CCommonBusinessV2/services/G2CCommonBusiness
+api.access_token1=1a1e7391-07c4-3763-b4eb-2c30c810d80d
+api.access_token=5de73541-9052-3505-a7bc-73f953b5d6c6
+api_citizen_detail.url=https://staging-datahub-apim.dit.gov.bt/dcrc_citizen_details_api/1.0.0
+api_vehicle_detail.url=https://staging-datahub-apim.dit.gov.bt/rsta_licenseandvehicleinformationapi/1.0.0
+api_land_detail.url=https://staging-datahub-apim.dit.gov.bt/nlcs_landdetailapi/1.0.0
+
+#getCitizenImage.endPointURL=https://staging-datahub-apim.dit.gov.bt/dcrc_restcitizenimageapi/1.0.0
+#getSCSDetails.endPointURL=https://staging-datahub-apim.dit.gov.bt/rbp_scs_details_api/1.0.0
+#getRCSCDetails.endPointURL=https://staging-datahub-apim.dit.gov.bt/rcsc_employeedetailsapi/1.0.0
+#sms.url.firstPart=http://172.16.148.14/push/push.php?to=

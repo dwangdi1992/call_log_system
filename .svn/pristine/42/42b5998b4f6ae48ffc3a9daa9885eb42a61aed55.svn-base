@@ -1,0 +1,43 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<%--
+  Created by IntelliJ IDEA.
+  User: RMA
+  Date: 4/16/2020
+  Time: 9:57 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<ul>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/consolidateAccBalReport"/>"> Govt. Consolidate
+        Account Balance</a>
+    </li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/currentAccBalReport"/>"> Current
+        Account Balance</a>
+    </li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/sweepAccBalReport"/>"> Sweeping
+        Account Balance</a>
+    </li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/cashRatioAccBalReport"/>"> Cash
+        Reserve Ratio Account Balance</a>
+    </li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/giftSettAccBalReport"/>"> GIFT
+        Account Balance</a>
+    </li>
+    <li><a class="collapse-item text-info"
+           href="<c:url value="/bankReport/treasuryReport"/>"> Govt. Treasury Bill</a>
+    </li>
+    <li>
+        <a class="collapse-item text-info" href="<c:url value="/bankReport/nationalResFundReport"/>">National
+            Resilient Fund
+        </a>
+    </li>
+</ul>
+
+

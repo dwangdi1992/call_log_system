@@ -1,0 +1,96 @@
+/**
+ * Created by RMA on 4/7/2020.
+ */
+
+govtConsolidateAcc = (function () {
+    "use strict";
+
+    var formId = $('#govtConsolidateAcc');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "govtConsolidateAcc"
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function () {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: _baseURL() + '/save',
+                        type: 'POST',
+                        data: $(form).serializeArray(),
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function getGovConsolidateBalance() {
+        //$('#btnSearch').on('click', function () {
+        $.ajax({
+            url: _baseURL() + '/getGovConsolidateBalance',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center" id="govtConId">' + res[i].id + ' </td>' +
+                        '<td class="align-center" id="date">' + res[i].date + '</td>' +
+                        '<td class="align-right" id="amt">' + commaSeparator(res[i].balance_amount) + '</td>';
+                    }
+                    var tableID = $('#govtConsolidateAccTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+        //});
+    }
+
+
+    function selectTr() {
+        $('#govtConsolidateAccTable').find(' tbody').on('click', 'tr', function () {
+            var selectedTr = $(this).closest('tr');
+            var id = selectedTr.find('#govtConId').text();
+            var date = selectedTr.find('#date').text();
+            var amt = selectedTr.find('#amt').text().replace(/,/g, '');
+            $('.editable').prop('disabled', false);
+            $('#btnSave').prop('disabled', true);
+            $('#govtConId').prop('readOnly', true).val(id);
+            $('#date').prop('disabled', true).val(date);
+            $('#balance_amount').prop('disabled', true).val(amt);
+        });
+    }
+
+    function edit() {
+        $('#btnEdit').on('click', function () {
+            $('.editable').prop('disabled', false);
+            $('#btnSave').prop('disabled', false);
+            $('#date').prop('disabled', false);
+            $('#balance_amount').prop('disabled', false);
+        });
+    }
+
+    return {
+        save: save,
+        getGovConsolidateBalance: getGovConsolidateBalance,
+        selectTr: selectTr,
+        edit: edit
+    };
+})();
+
+$(document).ready(function () {
+    govtConsolidateAcc.save();
+    govtConsolidateAcc.getGovConsolidateBalance();
+    govtConsolidateAcc.selectTr();
+    govtConsolidateAcc.edit();
+});

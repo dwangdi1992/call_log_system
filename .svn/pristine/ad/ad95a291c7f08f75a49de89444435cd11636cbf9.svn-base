@@ -1,0 +1,86 @@
+/**
+ * Created by RMA on 3/30/2020.
+ */
+
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dfermEntry = (function () {
+    "use strict";
+
+    var formId = $('#dfermEntryForm');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dfermEntry"
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function () {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    var data = new FormData($(form)[0]);
+                    data.append('uploadFile', $('input[type=file]')[0].files[0]);
+                    $.ajax({
+                        url: _baseURL() + '/save',
+                        type: 'POST',
+                        data: data,
+                        enctype: 'multipart/form-data',
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function excelFormat() {
+        $('#iDataName').on('change', function () {
+            var typeId = $(this).val();
+            var basePath = nesGlobal.baseURL+"resources/excelFormat/dferm/";
+            var excelPath = "";
+            var excelFormat_id = $('#excelFormat');
+
+            if (typeId == 1)
+                excelPath = basePath + "Reserve Position.xlsx";
+
+            if (typeId == 2)
+                excelPath = basePath + "Foreign Currency Flow.xlsx";
+
+            if (typeId == 3)
+                excelPath = basePath + "Foreign Currency Trade.xlsx";
+
+            if (typeId == 4)
+                excelPath = basePath + "RGOB Debt Repayment Schedule.xlsx";
+
+            if (typeId == 5)
+                excelPath = basePath + "Private Sector.xlsx";
+
+            if (typeId == 6)
+                excelPath = basePath + "Aircraft Lease Payment.xlsx";
+
+            var link = '<a class="d-none d-sm-inline-block btn btn-sm btn-primary" href="' + excelPath + '"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Excel Format</a>';
+            excelFormat_id.html(link);
+
+            if (typeId === '')  excelFormat_id.html('');
+        });
+    }
+
+    return {
+        save: save,
+        excelFormat: excelFormat
+    };
+})
+();
+
+$(document).ready(function () {
+    dfermEntry.save();
+    dfermEntry.excelFormat();
+});

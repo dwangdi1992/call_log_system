@@ -1,0 +1,8 @@
+TreasuryBillDao.getTreasuryBill = SELECT A.treasury_no, B.bank_name participantName, A.rate,A.days , A.allotted_amt,A.outstanding_amt \
+                                  FROM db_treasury A \
+                                  INNER JOIN common_bank B ON A.participant = B.bank_id
+
+TreasuryBillDao.isTreasuryNoExist = SELECT CASE WHEN (COUNT(A.treasury_no) > 0 ) THEN TRUE ELSE FALSE END  isTreasuryNoExist \
+                                    FROM db_treasury A WHERE A.treasury_no =:treasuryNo
+
+TreasuryBillDao.getTreasuryBillList = SELECT A.treasury_no, A.maturity_date, A.rate, SUM(A.allotted_amt) allotted_amt, SUM(A.outstanding_amt) outstanding_amt FROM db_treasury A GROUP BY A.treasury_no

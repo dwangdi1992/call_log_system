@@ -1,0 +1,180 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/19/2020
+  Time: 12:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
+    <title>Loan Bucket Movement for Financial Institution</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <input type="hidden" id="report" value="${REPORT}"/>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800"></h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10 align-center">
+                Bucket wise trend by Amount (Nu millions)
+            </div>
+        </div>
+        <div class="card-body row">
+
+            <div class="col-md-7">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="lbm_by_amount_tbl" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th colspan="8" class="align-center">Bucket wise trend by Amount (Nu millions)
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Buckets</th>
+                            <th>Standard</th>
+                            <th>Watch</th>
+                            <th>Substandard</th>
+                            <th>Doubtful</th>
+                            <th>Loss</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="chart" id="lbm_by_amount_chart" style="max-height: 200px;font-size: 9px"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10 align-center">
+                Bucket wise trend by No of accounts
+            </div>
+        </div>
+        <div class="card-body row">
+
+            <div class="col-md-7">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="lbm_by_acs_tbl" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th colspan="8" class="align-center">Bucket wise trend by No of accounts
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Buckets</th>
+                            <th>Standard</th>
+                            <th>Watch</th>
+                            <th>Substandard</th>
+                            <th>Doubtful</th>
+                            <th>Loss</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="chart" id="lbm_by_acs_chart"
+                     style="max-height: 200px;font-size: 9px;margin: 0px auto;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10 align-center">
+                NPL Trend (Amount in millions)
+            </div>
+        </div>
+
+        <div class="card-body row">
+
+            <div class="col-md-7">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="npl_trend_tbl" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th colspan="4" class="align-center">NPL Trend (Nu millions)
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Amount (in million)</th>
+                            <th>No of Account</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="chart" id="npl_trend_chart" style="height: 200px;font-size: 9px"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10 align-center">
+                Loan bucket movements (amount %)
+            </div>
+        </div>
+
+        <div class="card-body row">
+
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm" id="lbm_by_ratio_tbl" width="100%" cellspacing="0">
+                        <thead>
+
+                        <tr>
+                            <th colspan="8" class="align-center">Loan bucket movements (amount %)
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Buckets</th>
+                            <th>Standard</th>
+                            <th>Watch</th>
+                            <th>Substandard</th>
+                            <th>Doubtful</th>
+                            <th>Loss</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div><%--
+            <div class="col-md-5">
+                <div class="chart" id="lbm_by_ratio_chart" style="max-height: 300px;font-size: 9px"></div>
+            </div>--%>
+        </div>
+
+    </div>
+
+</body>
+</html>

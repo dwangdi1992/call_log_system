@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.ozlerhakan:poiji:2.5.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../mms/maven/repository/com/github/ozlerhakan/poiji/2.5.0/poiji-2.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="https://mvnrepository.com/artifact/com.github.ozlerhakan/poiji" />
+      <root url="jar://$PROJECT_DIR$/../../../mms/maven/repository/com/github/ozlerhakan/poiji/2.5.0/poiji-2.5.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../mms/maven/repository/com/github/ozlerhakan/poiji/2.5.0/poiji-2.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

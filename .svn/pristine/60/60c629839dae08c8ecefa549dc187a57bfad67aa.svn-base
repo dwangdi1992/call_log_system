@@ -1,0 +1,72 @@
+/**
+ * Created by RMA on 3/24/2020.
+ */
+
+dcmINRReport = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "dcmINRReport/"
+    }
+
+    function getDcmINRReport() {
+
+        $.ajax({
+            url: _baseURL() + 'getDcmINRReport',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + parseInt(parseInt(i) + 1) + '</td>' +
+                    '<td class="align-center">' + res[i].date + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_tpu) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_plg) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_mgr) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_ex_counter_bnb_hq) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_currency_chests) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_total) + '</td>';
+                }
+                var tableId = $('#stockINRTblId');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    function getDailyINROutflowList() {
+        $.ajax({
+            url: _baseURL() + 'getDailyINROutflowList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td></td>' +
+                    '<td>' + res[i].date + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_ex_counter_bnb_hq) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_plg_ro) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_mgr_ro) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_sj_bob) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_paro_airport_bob) + '</td>' +
+                    '<td class="align-right">' + commaSeparator(res[i].inr_total) + '</td>';
+                }
+                var tableId = $('#dailyOutFlow');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+    return {
+        getDcmINRReport: getDcmINRReport,
+        getDailyINROutflowList: getDailyINROutflowList
+    };
+})();
+
+$(document).ready(function () {
+    dcmINRReport.getDcmINRReport();
+    dcmINRReport.getDailyINROutflowList();
+});

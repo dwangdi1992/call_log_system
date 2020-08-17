@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - ccr_db@localhost" uuid="a99bb809-a601-442f-a3a2-e89d730ab9d5">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>ccr_db.*</schema-pattern>
+      <default-schemas>ccr_db.*</default-schemas>
+    </data-source>
+  </component>
+</project>

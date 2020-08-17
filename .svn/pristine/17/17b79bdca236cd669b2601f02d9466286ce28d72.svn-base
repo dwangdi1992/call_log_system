@@ -1,0 +1,111 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 3/19/2020
+  Time: 12:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html>
+<head>
+    <title>Status for Term-based Soft Working Capital Facility (Nu. in million)</title>
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <input type="hidden" id="report" value="${REPORT}"/>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800"></h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-12">
+            <div class="col-md-10">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" id="wcDetailReportTbl" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th colspan="12" class="align-center">Status for Term-based Soft Working Capital Facility (Nu.
+                            in million)
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>#</th>
+                        <th class="align-center">FI</th>
+                        <th>No. of a/cs</th>
+                        <th>Client Name</th>
+                        <th>Category</th>
+                        <th>Sanctioned Limit</th>
+                        <th>Disbursed amount (Nu)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%--<div class="modal" id="myModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body ">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-sm" id="wcDetailReportTbl" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th colspan="12" class="align-center">Term-based Soft Working Capital Facility (TSWCF)
+                                    Details
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3">Financial Institution Name :</th>
+                                <th colspan="9" id="bank_name"></th>
+                            </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Client Name</th>
+                                <th>CID/TPN</th>
+                                <th>Account No</th>
+                                <th>Sanction Amount</th>
+                                <th>Sanction Date</th>
+                                <th>Total Outstanding</th>
+                                <th>Repayment principal Amt</th>
+                                <th>Repayment interest Amt</th>
+                                <th>Collateral Type</th>
+                                <th>Collateral Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- /.container-fluid -->
+--%>
+</body>
+</html>

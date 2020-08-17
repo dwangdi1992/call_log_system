@@ -1,0 +1,78 @@
+/**
+ * Created by RMA on 5/15/2020.
+ */
+
+capitalEntry = (function () {
+    "use strict";
+    var formID = "#fileUploadForm";
+    var isSubmitted = false;
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "capitalEntry";
+    }
+
+
+    function save() {
+        $('#btnSave').on('click', function () {
+            $(formID).validate({
+                submitHandler: function (form) {
+                    var data = new FormData($(form)[0]);
+                    data.append('uploadFile', $('input[type=file]')[0].files[0]);
+
+                    $.ajax({
+                        url: _baseURL() + '/save',
+                        type: 'POST',
+                        data: data,
+                        enctype: 'multipart/form-data',
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function getCapitalInfoList() {
+        $.ajax({
+            url: _baseURL() + '/getCapitalInfoList',
+            //data: {effective_date: $(this).val()},
+            type: 'GET',
+            success: function (res) {
+                /*var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj2 + '</td>' +
+                    '<td>' + res[i].obj1 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#mlrTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+                createDataTableWithButtons(tableId);*/
+            }
+        });
+    }
+
+
+    return {
+        save: save,
+        getCapitalInfoList: getCapitalInfoList
+    };
+})();
+
+$(document).ready(function () {
+    capitalEntry.save();
+    //capitalEntry.getCapitalInfoList();
+});

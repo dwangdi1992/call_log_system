@@ -1,0 +1,75 @@
+/**
+ * Created by RMA on 3/23/2020.
+ */
+dfrs_mlr = (function () {
+    "use strict";
+    //var formID = "#fileUploadForm";
+    var isSubmitted = false;
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "mlr/";
+    }
+
+
+    function save() {
+        $('#btnSave').on('click', function () {
+            $('form[id="mlrForm"]').validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: _baseURL() + 'save',
+                        type: 'POST',
+                        data: $(form).serializeArray(),
+                        success: function (res) {
+                            var data = res.dto;
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function getMLR(){
+        $('#effective_date').on('change', function () {
+            $.ajax({
+                url: _baseURL() + 'getMLR',
+                data: {effective_date:$(this).val()},
+                type: 'GET',
+                success: function (res) {
+                    var row = '';
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                        '<td>' + (parseInt(i) + 1) + '</td>' +
+                        '<td>' + res[i].obj2 + '</td>' +
+                        '<td>' + res[i].obj1 + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj5) + '</td>' +
+                        '<td>' + commaSeparator(res[i].obj6) + '</td>' +
+                        '</tr>';
+                    }
+                    var tableId = $('#mlrTbl');
+                    tableId.dataTable().fnDestroy();
+                    tableId.find('tbody').empty().prepend(row);
+
+                    createDataTableWithButtons(tableId);
+                }
+            });
+        });
+    }
+
+
+    return {
+        save: save,
+        getMLR:getMLR
+    };
+})();
+
+$(document).ready(function () {
+    dfrs_mlr.save();
+    dfrs_mlr.getMLR();
+});

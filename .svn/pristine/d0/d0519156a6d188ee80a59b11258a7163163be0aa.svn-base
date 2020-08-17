@@ -1,0 +1,80 @@
+package rma.org.bt.mms.global.library;
+
+import com.squareup.okhttp.*;
+import org.apache.oltu.oauth2.client.OAuthClient;
+import org.apache.oltu.oauth2.client.URLConnectionClient;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest;
+import org.apache.oltu.oauth2.client.response.OAuthClientResponse;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+import org.apache.oltu.oauth2.common.message.types.GrantType;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.token.Token;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.Base64;
+
+public class TokenUtil {
+
+    public static String getAccessToken() {
+
+        /*OkHttpClient client = new OkHttpClient();
+
+        //Cliend id and client secret
+        String endpoint = "https://sso.dit.gov.bt/oauth2/token";
+        String username = "PyK6uBk6Al4RqsMhOublfSBmaa8a";
+        String password = "9AeKCSmUX5l3Tj79DaruP6fTCMsa";
+        String credentials = username + ":" + password;
+
+        final String basic = "Basic " + Base64.getEncoder().encodeToString(credentials.getBytes());
+
+
+        Request request = new Request.Builder()
+                .addHeader("grant_type","client_credentials")
+                .addHeader("Content-Type","application/x-www-form-urlencoded")
+                .url(endpoint)
+//                .addHeader("Authorization", Credentials.basic("username", "password"))
+                .addHeader("Authorization", basic)
+                .build();
+
+        */
+        try {
+            String CONSUMER_KEY = "PyK6uBk6Al4RqsMhOublfSBmaa8a";
+            String CONSUMER_SECRET = "9AeKCSmUX5l3Tj79DaruP6fTCMsa";
+            String TOKEN_ENDPOINT = "https://sso.dit.gov.bt/oauth2/token";
+            OAuthClientRequest accessRequest = OAuthClientRequest.tokenLocation(TOKEN_ENDPOINT).setGrantType(GrantType.CLIENT_CREDENTIALS).setClientId(CONSUMER_KEY).setClientSecret(CONSUMER_SECRET).buildQueryMessage();
+
+            accessRequest.addHeader("Accept", "application/json");
+            accessRequest.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+            OAuthClientResponse oAuthResponse = oAuthClient.accessToken(accessRequest);
+
+            setAccessTokenExpireTime(System.currentTimeMillis() +
+                    Long.valueOf(oAuthResponse.getParam("expires_in")) * 1000L);
+            setApplicationToken(oAuthResponse.getParam("access_token"));
+            return oAuthResponse.getParam("access_token");
+        }catch ( Exception e){
+            System.out.print("Token generation error.");
+        }
+
+        return null;
+
+
+    }
+
+    private static String applicationToken;
+    private static void setAccessTokenExpireTime(long accessTokenExpireTime)
+    {
+        accessTokenExpireTime = accessTokenExpireTime;
+    }
+
+    private static void setApplicationToken(String applicationToken)
+    {
+        applicationToken = applicationToken;
+    }
+}
+

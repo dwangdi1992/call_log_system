@@ -1,0 +1,2 @@
+DCMCurrencyChestInputDao.getDCMCurrencyChestReport = SELECT date, cc01, cc02, cc03, cc04, cc05, cc06, cc07, cc08, cc09, \
+                                                    cc10, cc11, cc20, cc21, cc22, cc23, total FROM dcm_currency_chest

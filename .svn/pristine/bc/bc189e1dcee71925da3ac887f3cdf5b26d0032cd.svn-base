@@ -1,0 +1,47 @@
+/**
+ * Created by RMA on 4/1/2020.
+ */
+
+dfermReport = (function () {
+    "use strict";
+    function _baseURL() {
+        return nesGlobal.baseURL + "dfermReport/"
+    }
+
+    function reservePositionReport() {
+        $.ajax({
+            url: _baseURL() + 'reservePositionReport',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                for (var i in res) {
+                    row = row + '<tr align="left">' +
+                    '<td>' + (parseInt(i) + 1) + '</td>' +
+                    '<td>' + res[i].obj0 + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj1) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj2) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj3) + '</td>' +
+                    '<td>' + commaSeparator(res[i].obj4) + '</td>' +
+                    '</tr>';
+                }
+                var tableId = $('#slrReportTbl');
+                tableId.dataTable().fnDestroy();
+                tableId.find('tbody').empty().prepend(row);
+
+                createDataTableWithButtons(tableId);
+            }
+        });
+    }
+
+
+    return {
+        reservePositionReport: reservePositionReport
+
+    };
+})();
+
+$(document).ready(function () {
+    //dfermReport.reservePositionReport();
+
+    createDataTableWithButtons($('.enableDataTable'));
+});

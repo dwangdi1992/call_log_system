@@ -1,0 +1,93 @@
+/**
+ * Created by RMA on 4/15/2020.
+ */
+
+nationalResilientFund = (function () {
+    "use strict";
+
+    var formId = $('#nationalResilientFund');
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "nationalResilientFund"
+    }
+
+    function save() {
+        $(formId).on('click', '#btnSave', function () {
+            $(formId).validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: _baseURL() + '/save',
+                        type: 'POST',
+                        data: $(form).serializeArray(),
+                        success: function (res) {
+                            if (res.status == 1) {
+                                successMsg(res.text, _baseURL());
+                            } else {
+                                warningMsg(res.text);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    }
+
+    function getNationalResFundList() {
+        $.ajax({
+            url: _baseURL() + '/getNationalResFundList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td id="id" class="align-center">' + res[i].id + ' </td>' +
+                        '<td id="entry_date" class="align-center">' + res[i].entry_date + '</td>' +
+                        '<td  id="amount" class="align-right">' + commaSeparator(res[i].amount) + '</td>';
+                    }
+                    var tableID = $('#nationalResFundTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+    function selectTr() {
+        $('#nationalResFundTable').find(' tbody').on('click', 'tr', function () {
+            var selectedTr = $(this).closest('tr');
+            var id = selectedTr.find('#id').text();
+            var date = selectedTr.find('#entry_date').text();
+            var amt = selectedTr.find('#amount').text().replace(/,/g, '');
+            $('.editable').prop('disabled', false);
+            $('#btnSave').prop('disabled', true);
+            $('#nrfId').prop('readOnly', true).val(id);
+            $('#entry_date').prop('disabled', true).val(date);
+            $('#amount').prop('disabled', true).val(amt);
+        });
+    }
+
+    function edit() {
+        $('#btnEdit').on('click', function () {
+            $('.editable').prop('disabled', false);
+            $('#btnSave').prop('disabled', false);
+            $('#date').prop('disabled', false);
+            $('#balance_amount').prop('disabled', false);
+        });
+    }
+
+    return {
+        save: save,
+        getNationalResFundList: getNationalResFundList,
+        selectTr: selectTr,
+        edit: edit
+    };
+})();
+
+$(document).ready(function () {
+    nationalResilientFund.save();
+    nationalResilientFund.getNationalResFundList();
+    nationalResilientFund.selectTr();
+    nationalResilientFund.edit();
+});

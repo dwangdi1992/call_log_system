@@ -1,0 +1,302 @@
+/**
+ * Created by  Sonam Dargay on 12/20/2019.
+ */
+
+financialInfo = (function () {
+    "use strict";
+
+    function _baseURL() {
+        return mmsGlobal.baseURL;
+    }
+
+    function search() {
+        $('#btnSearch').on('click', function () {
+            var searchKey = $('#keyword').val();
+            if (searchKey !== '') {
+                getLoanInfo(searchKey);
+                getDepositInfo(searchKey);
+                //getWorkingCapitalInfo(searchKey);
+                getKiduInfo(searchKey);
+                //getLandInfo(searchKey);
+                //getBuildingInfo(searchKey);
+                //getVehicleInfo(searchKey);
+
+                // TODO not needed now
+                // getBusinessInfo(searchKey);
+            }
+        });
+    }
+
+    /**
+     * To get loan information if any.
+     */
+    function getLoanInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getLoanInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            //'<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + commaSeparator(res[i].sanctionAmt) + '</td>' +
+                            '<td>' + commaSeparator(res[i].outstandingAmt) + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+                    covertToDatatable($('#loanDetailTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#loanDetailDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To get deposit information if any.
+     */
+    function getDepositInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getDepositInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td>' + res[i].cid + '</td>' +
+                            '<td>' + res[i].depositType + '</td>' +
+                            '<td>' + commaSeparator(res[i].amount) + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+                    covertToDatatable($('#depositDetailTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#depositDetailDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To get working capital information if any.
+     */
+    function getWorkingCapitalInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getWorkingCapitalInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + res[i].sanctionAmt + '</td>' +
+                            '<td>' + res[i].outstandingAmt + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+                    covertToDatatable($('#workingCapitalTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#workingCapitalDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To get kidu information if any.
+     */
+    function getKiduInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getKiduInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            // '<td></td>' +
+                            '<td>' + res[i].searchKey + '</td>' +
+                            '<td>' + res[i].occupation + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].companyName + '</td>' +
+                            '<td>' + commaSeparator(res[i].totalKiduAmt) + '</td>';
+                    }
+
+                    covertToDatatable($('#dgkTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#dgkDiv'), isDataExist);
+            }
+        });
+    }
+
+    /**
+     * To get land information if any.
+     */
+    function getLandInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getLandInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + res[i].sanctionAmt + '</td>' +
+                            '<td>' + res[i].outstandingAmt + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+                    var landInfoTbl = $('#landInfoTbl');
+                    landInfoTbl.dataTable().fnDestroy();
+                    landInfoTbl.find('tbody').empty().prepend(row);
+                    landInfoTbl.dataTable();
+                    isDataExist = true;
+                }
+                collapseDiv($('#landInfoDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To get build or house information in any.
+     */
+    function getBuildingInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getBuildingInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + res[i].sanctionAmt + '</td>' +
+                            '<td>' + res[i].outstandingAmt + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+
+                    covertToDatatable($('#buildingTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#buildingDiv'), isDataExist);
+            }
+        });
+    }
+
+    /**
+     * To get vehicle information if any.
+     */
+    function getVehicleInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getVehicleInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + res[i].sanctionAmt + '</td>' +
+                            '<td>' + res[i].outstandingAmt + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+                    covertToDatatable($('#vehicleInfoTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#vehicleInfoDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To get business information if any.
+     */
+    function getBusinessInfo(searchKey) {
+        var isDataExist = false;
+        $.ajax({
+            url: _baseURL() + 'getBusinessInfo',
+            data: {searchKey: searchKey},
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (!isEmpty(res)) {
+                    for (var i in res) {
+                        row = row + '<tr align="left">' +
+                            '<td></td>' +
+                            '<td>' + res[i].accountNo + '</td>' +
+                            '<td>' + res[i].sector + '</td>' +
+                            '<td>' + res[i].sanctionDate + '</td>' +
+                            '<td>' + res[i].sanctionAmt + '</td>' +
+                            '<td>' + res[i].outstandingAmt + '</td>' +
+                            '<td>' + res[i].finInstitution + '</td>'
+                    }
+
+                    covertToDatatable($('#businessTbl'), row);
+                    isDataExist = true;
+                }
+                collapseDiv($('#businessDiv'), isDataExist);
+            }
+        })
+    }
+
+    /**
+     * To show or hide the div content.
+     * @param element
+     * @param isDataExist
+     */
+    function collapseDiv(element, isDataExist) {
+        if (isDataExist) {
+            element.removeAttr('hidden');
+        } else {
+            element.attr('hidden', 'hidden');
+        }
+    }
+
+    function covertToDatatable(element, row) {
+        element.dataTable().fnDestroy();
+        element.find('tbody').empty().prepend(row);
+        element.dataTable();
+    }
+
+    function init() {
+        search();
+    }
+
+    return {
+        init: init
+    };
+})();
+
+$(document).ready(function () {
+    financialInfo.init();
+});

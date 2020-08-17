@@ -1,0 +1,218 @@
+/**
+ * Created by RMA on 3/26/2020.
+ */
+
+bankReport = (function () {
+    "use strict";
+    var isSubmitted = false;
+
+    function _baseURL() {
+        return nesGlobal.baseURL + "bankReport/";
+    }
+
+
+    function getCurAccBalList() {
+        $.ajax({
+            url: _baseURL() + 'getCurAccBalList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bob_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].pnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bdbl_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].tbank_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].currentAccAmt) + '</td>'
+                    }
+                    var tableID = $('#currentAccTableId');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+
+    function getGiftAccBalList() {
+        $.ajax({
+            url: _baseURL() + 'getGiftAccBalList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bob_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].pnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bdbl_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].tbank_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].currentAccAmt) + '</td>'
+                    }
+                    var tableID = $('#giftSetAccTableId');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+    function getCashReserveRatioList() {
+        $.ajax({
+            url: _baseURL() + 'getCashReserveRatioList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bob_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].pnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bdbl_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].tbank_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].cashReserveRatio) + '</td>'
+                    }
+
+                    var tableID = $('#cashReserveRatioTableId');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+
+
+        });
+    }
+
+    function getGovConsolidateBalance() {
+        $.ajax({
+            url: _baseURL() + 'getGovConsolidateBalance',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + ' </td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].balance_amount) + '</td>';
+                    }
+                    var tableID = $('#consolidateTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+    function getSweepAccBalList() {
+        $.ajax({
+            url: _baseURL() + 'getSweepAccBalList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].date + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bob_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].pnb_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].bdbl_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].tbank_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].sweepingAcc) + '</td>'
+                    }
+
+                    var tableID = $('#sweepAccTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+    function getTreasuryBillList() {
+        $.ajax({
+            url: _baseURL() + '/getTreasuryBillList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    for (var i in res) {
+                        row = row + '<tr>' +
+                        '<td class="align-center">' + (parseInt(i) + 1) + '</td>' +
+                        '<td class="align-center">' + res[i].treasury_no + '</td>' +
+                        '<td class="align-right">' + res[i].maturity_date + '</td>' +
+                        '<td class="align-right">' + res[i].rate + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].allotted_amt) + '</td>' +
+                        '<td class="align-right">' + commaSeparator(res[i].outstanding_amt) + '</td>';
+                    }
+
+                    var tableID = $('#treasuryTable');
+                    tableID.dataTable().fnDestroy();
+                    tableID.find('tbody').empty().prepend(row);
+                    createDataTableWithButtons(tableID);
+                }
+            }
+        });
+    }
+
+    function getMonthlyBankDepositList() {
+        $.ajax({
+            url: _baseURL() + '/getMonthlyBankDepositList',
+            type: 'GET',
+            success: function (res) {
+                var row = '';
+                if (res != null) {
+                    new Morris.Line({
+                        element: 'line-chart-db-monthly',//Div id.
+                        data: res,
+                        xkey: 'accountType', //X - Axis
+                        parseTime: false,
+                        ykeys: ['bob_amt', 'bnb_amt', 'pnb_amt', 'bdbl_amt', 'tbank_amt'],//Y-axis
+                        labels: ['BOBL', 'BNBL', 'DPNBL', 'BDBL', 'T Bank'],
+                        lineColors: ['#2E8B57', '#ff0000', '#00b300', '#808000', '#0000e6']
+                    });
+                }
+            }
+        });
+    }
+
+    return {
+        getCurAccBalList: getCurAccBalList,
+        getGiftAccBalList: getGiftAccBalList,
+        getCashReserveRatioList: getCashReserveRatioList,
+        getSweepAccBalList: getSweepAccBalList,
+        getGovConsolidateBalance: getGovConsolidateBalance,
+        getTreasuryBillList: getTreasuryBillList,
+        getMonthlyBankDepositList: getMonthlyBankDepositList
+    };
+})
+();
+
+$(document).ready(function () {
+    bankReport.getCurAccBalList();
+    bankReport.getGiftAccBalList();
+    bankReport.getCashReserveRatioList();
+    bankReport.getSweepAccBalList();
+    bankReport.getGovConsolidateBalance();
+    bankReport.getTreasuryBillList();
+
+    createDataTableWithButtons($('#nationalResFund'));
+    //bankReport.getMonthlyBankDepositList(); TODO need to change.
+});
