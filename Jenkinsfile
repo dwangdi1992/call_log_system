@@ -1,15 +1,12 @@
 pipeline {
     agent any
-
+    environment{
+        PATH=''
+    }
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
         stage('Build') {
             steps {
-                echo 'Build Stage'
+                sh 'mvn clean install'
             }
         }
         stage('Deploy') {
@@ -19,6 +16,7 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh 'mvn test'
                 echo 'Test Stage'
             }
         }
